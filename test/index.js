@@ -56,6 +56,13 @@ describe('electron-releases', () => {
     releases.filter(release => release.onNPM).length.should.be.above(64)
   })
 
+  // for context, see https://electronjs.org/blog/npm-install-electron
+  it('excludes npm releases prior to 1.3.1', () => {
+    const npmReleases = releases.filter(release => release.onNPM)
+    npmReleases.length.should.be.above(0)
+    releases.every(release => semver.gte(release.version, '1.3.1')).should.eq(true)
+  })
+
   it('includes processed changelogs in HTML format')//, () => {
   // })
 })

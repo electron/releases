@@ -13,6 +13,7 @@ const parseLinkHeader = require('parse-link-header')
 const {promisify} = require('util')
 const exec = promisify(require('child_process').exec)
 const github = new GitHub()
+const firstNpmVersion = '1.3.1' // `electron` used to be a different module on npm
 
 github.authenticate({type: 'token', token: process.env.GITHUB_AUTH_TOKEN})
 
@@ -21,6 +22,13 @@ main()
 async function main () {
   console.log('fetching npm releases list')
   let {stdout: npmVersions} = await exec('npm show electron versions')
+  npmVersions = npmVersions
+    .split('\n')
+    .map(line => line.trim())
+    .map(Boolean)
+
+  // filter out old versions of `electron` that were actually a different module
+  npmVersions = npmVersions.filter(version => semver.gte(version, firstNpmVersion))
 
   console.log('fetching npm dist-tags')
   let {stdout: npmDistTags} = await exec('npm dist-tag ls electron')
@@ -97,12 +105,7 @@ async function main () {
 
   // releases = await Promise.all(releases.map(processRelease))
 
-  const liteProps = [
-    'tag_name',
-    'version',
-    'published_at',
-    'prerelease'
-  ]
+  const liteProps = require('../lib/lite-props')
   const lite = releases.map(release => pick(release, liteProps))
   const liteFile = path.join(__dirname, '../lite.json')
   fs.writeFileSync(liteFile, JSON.stringify(lite, null, 2))

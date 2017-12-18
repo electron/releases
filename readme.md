@@ -1,17 +1,18 @@
 # electron-releases 
 
-Complete and regularly updated info about every release of Electron
+> Complete and up-to-date info about every release of Electron.
 
 This package:
 
-- is updated daily
-- includes all data from GitHub Releases
-- includes prereleases that are not published to npm
-- does NOT include draft releases
-- includes version data and dist-tags from the npm registry
-- includes V8, Chromium, and Node.js versions
-- includes [GitHub-flavored HTML](https://ghub.io/hubdown) for of each changelog.
-
+- includes all [GitHub Releases](https://developer.github.com/v3/repos/releases/#get-a-single-release) data about Electron.
+- does not include draft releases.
+- includes prereleases which are not published to npm.
+- tracks which versions are published to npm.
+- tracks [npm dist-tags](https://docs.npmjs.com/cli/dist-tag) like `latest` and `beta`.
+- includes V8, Chromium, and Node.js version data.
+- includes [GitHub-flavored HTML](https://ghub.io/hubdown) for each release's changelog.
+- ignores npm versions from the days before [Electron was `electron`](https://electronjs.org/blog/npm-install-electron).
+- is updated daily.
 
 ## Installation
 
@@ -21,7 +22,54 @@ npm i electron-releases
 
 ## Usage
 
-TODO. Note that there's a lite version.
+The module exports an array of release objects:
+
+```js
+const releases = require('electron-releases')
+
+// find newest version:
+releases[0].tag_name // => 'v1.8.2-beta.3'
+
+// find `latest` on npm, which is not necessarily the most recent release:
+releases.find(release => release.npmDistTag === 'latest')
+
+// find `beta` on npm:
+releases.find(release => release.npmDistTag === 'beta')
+```
+
+### Data
+
+Each release contains all the data returned by the 
+[GitHub Releases API](https://developer.github.com/v3/repos/releases/#get-a-single-release), 
+plus some extra properties:
+
+- `version` (String) - the same thing as `dist_tag`, but without the `v` for convenient [semver comparisons](https://github.com/npm/node-semver#usage).
+- `npmDistTag` (String) - an [npm dist-tag](https://docs.npmjs.com/cli/dist-tag) like `latest` or `beta`.
+- `onNPM` (Boolean) - whether or not this release has been published to npm.
+- `dependencyVersions` (Object) - version numbers for Electron dependencies.
+  - `v8` (String)
+  - `chromium` (String)
+  - `node` (String)
+  - ...
+
+### Lite Module
+
+The main module contains a lot of metadata and weighs in at about **8MB**. If 
+you just want basic version info, try the lite edition which weighs in at 
+around **40KB**:
+
+```js
+const lite = require('electron-releases/lite')
+
+lite[0]
+// {
+//   tag_name: "v1.8.2-beta.3",
+//   published_at: "2017-12-04T22:42:38Z",
+//   prerelease: true
+// }
+```
+
+See [lib/lite-props.js](lib/lite-props.js) for the property list.
 
 ## Tests
 
