@@ -1,0 +1,28 @@
+{
+  "name": "electron-releases",
+  "description": "Complete and regularly updated info about every release of Electron",
+  "version": "1.0.0",
+  "main": "index.json",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "check-for-leaks": "^1.2.0",
+    "dotenv-safe": "^4.0.4",
+    "github": "^13.0.1",
+    "got": "^8.0.1",
+    "hubdown": "^1.1.0",
+    "lodash": "^4.17.4",
+    "mocha": "^4.0.1",
+    "npm": "^5.6.0",
+    "parse-link-header": "^1.0.1",
+    "semver": "^5.4.1",
+    "standard": "^10.0.3",
+    "standard-markdown": "^4.0.2"
+  },
+  "scripts": {
+    "build": "node script/build.js",
+    "test": "mocha && standard --fix && standard-markdown",
+    "prepack": "check-for-leaks",
+    "prepush": "check-for-leaks"
+  }
+}
