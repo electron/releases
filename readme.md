@@ -70,6 +70,9 @@ the following change:
 If none of these has changed, the build process aborts and runs again ten minutes
 later. For more detail, see [script/release.sh](script/release.sh)
 
+The Heroku app is also synced to the GitHub repo, so every push to the
+`master` branch will automatically deploy a new version of this app.
+
 ## Tests
 
 ```sh
