@@ -1,7 +1,6 @@
 require('chai').should()
 const {describe, it} = require('mocha')
 const releases = require('..')
-const lite = require('../lite')
 const semver = require('semver')
 
 describe('electron-releases', () => {
@@ -51,36 +50,28 @@ describe('electron-releases', () => {
     latests.length.should.eq(1)
   })
 
-  it('include booleans indicating npm published status', () => {
-    releases.find(release => release.version === '1.4.7').onNPM.should.eq(true)
-    releases.filter(release => release.onNPM).length.should.be.above(64)
+  it('includes npmPackageName prop to indicate npm publish status', () => {
+    releases.find(release => release.version === '1.4.7').npmPackageName.should.eq('electron')
+    releases.find(release => release.version === '1.0.0').npmPackageName.should.eq('electron-prebuilt')
+    releases.filter(release => release.npmPackageName === 'electron').length.should.be.above(62)
+
+    // assert exact number because the days of publishing electron-prebuilt are over
+    releases.filter(release => release.npmPackageName === 'electron-prebuilt').length.should.eq(96)
   })
 
   // for context, see https://electronjs.org/blog/npm-install-electron
-  it('excludes npm releases prior to 1.3.1', () => {
-    const npmReleases = releases.filter(release => release.onNPM)
-    npmReleases.length.should.be.above(0)
-    releases.every(release => semver.gte(release.version, '1.3.1')).should.eq(true)
+  it('sets `electron` as `npmPackageName` for releases >=1.3.1', () => {
+    const npmReleasesOfElectron = releases.filter(release => release.npmPackageName === 'electron')
+    npmReleasesOfElectron.length.should.be.above(0)
+    npmReleasesOfElectron.every(release => semver.gte(release.version, '1.3.1')).should.eq(true)
+  })
+
+  it('sets `electron-prebuilt` as `npmPackageName` for releases <1.3.1', () => {
+    const npmReleasesOfElectronPrebuilt = releases.filter(release => release.npmPackageName === 'electron-prebuilt')
+    npmReleasesOfElectronPrebuilt.length.should.be.above(0)
+    npmReleasesOfElectronPrebuilt.every(release => semver.lt(release.version, '1.3.1')).should.eq(true)
   })
 
   it('includes processed changelogs in HTML format')//, () => {
   // })
-})
-
-describe('electron-releases/lite', () => {
-  it('contains the same number of releases as the regular module', () => {
-    lite.length.should.eq(releases.length)
-  })
-
-  it('exports a minimal subset of props', () => {
-    const expectedProps = [
-      'tag_name',
-      'version',
-      'published_at',
-      'prerelease'
-    ]
-    const props = Object.keys(lite[0])
-
-    props.should.deep.equal(expectedProps)
-  })
 })

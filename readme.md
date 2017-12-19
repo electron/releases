@@ -44,32 +44,13 @@ Each release contains all the data returned by the
 plus some extra properties:
 
 - `version` (String) - the same thing as `dist_tag`, but without the `v` for convenient [semver comparisons](https://github.com/npm/node-semver#usage).
-- `npmDistTag` (String) - an [npm dist-tag](https://docs.npmjs.com/cli/dist-tag) like `latest` or `beta`.
-- `onNPM` (Boolean) - whether or not this release has been published to npm.
+- `npmDistTag` (String) - an [npm dist-tag](https://docs.npmjs.com/cli/dist-tag) like `latest` or `beta`. Most releases will not have a dist tag.
+- `npmPackageName` (String) - For packages published to npm, this will be `electron` or `electron-prebuilt`
 - `dependencyVersions` (Object) - version numbers for Electron dependencies.
   - `v8` (String)
   - `chromium` (String)
   - `node` (String)
   - ...
-
-### Lite Module
-
-The main module contains a lot of metadata and weighs in at about **8MB**. If 
-you just want basic version info, try the lite edition which weighs in at 
-around **40KB**:
-
-```js
-const lite = require('electron-releases/lite')
-
-lite[0]
-// {
-//   tag_name: "v1.8.2-beta.3",
-//   published_at: "2017-12-04T22:42:38Z",
-//   prerelease: true
-// }
-```
-
-See [lib/lite-props.js](lib/lite-props.js) for the property list.
 
 ## Tests
 
