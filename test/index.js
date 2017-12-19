@@ -74,4 +74,10 @@ describe('electron-releases', () => {
 
   it('includes processed changelogs in HTML format')//, () => {
   // })
+
+  it('includes a totalDownloads property for each release', () => {
+    const npmReleases = releases.filter(release => release.npmPackageName)
+    npmReleases.length.should.be.above(0)
+    npmReleases.every(release => release.totalDownloads > 0).should.eq(true)
+  })
 })

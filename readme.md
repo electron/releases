@@ -46,11 +46,14 @@ plus some extra properties:
 - `version` (String) - the same thing as `dist_tag`, but without the `v` for convenient [semver comparisons](https://github.com/npm/node-semver#usage).
 - `npmDistTag` (String) - an [npm dist-tag](https://docs.npmjs.com/cli/dist-tag) like `latest` or `beta`. Most releases will not have a dist tag.
 - `npmPackageName` (String) - For packages published to npm, this will be `electron` or `electron-prebuilt`
+- `totalDownloads` (Number) - Total downloads of all assets in the release that 
+  have a [detectable platform](https://github.com/zeke/platform-utils#api) in their
+  filename like `.zip`, `.dmg`, `.exe`, `.rpm`, `.deb`, etc.
 - `dependencyVersions` (Object) - version numbers for Electron dependencies.
   - `v8` (String)
   - `chromium` (String)
   - `node` (String)
-  - ...
+  - etc..
 
 ## Tests
 
