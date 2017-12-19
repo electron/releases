@@ -26,6 +26,6 @@
     "test": "mocha && standard --fix && standard-markdown",
     "prepack": "check-for-leaks",
     "prepush": "check-for-leaks",
-    "release": "node script/release.js"
+    "release": "./script/release.sh"
   }
 }
