@@ -49,8 +49,6 @@ async function main () {
   console.log('fetching GitHub Releases page count')
   const countRes = await github.repos.getReleases(ghOpts({per_page: 1}))
 
-  // TODO: abort if npm releases and github releases count are equal to old data
-
   let pagesToFetch
   try {
     const count = Number(parseLinkHeader(countRes.meta.link).last.page)
@@ -69,7 +67,7 @@ async function main () {
     releases = releases.concat(batch.data)
   }
 
-  console.log(`found ${releases.length} TOTAL releases on GitHub`)
+  console.log(`found ${releases.length} releases on GitHub`)
 
   console.log('fetching version data for deps like V8, Chromium, and Node.js')
   const depDataRes = await got('https://atom.io/download/electron/index.json', {json: true})
@@ -109,10 +107,28 @@ async function main () {
   // highest versions first
   .sort((a, b) => semver.compare(b.version, a.version))
 
-  console.log(`found ${releases.length} VALID releases on GitHub`)
-
   console.log('processing changelogs to HTML')
   releases = await Promise.all(releases.map(processRelease))
+
+
+  // Abort the build early if module is already up to date
+  const old = require('..')
+  const oldLatest = old.find(release => release.npmDistTag === 'latest').version
+  const newLatest = releases.find(release => release.npmDistTag === 'latest').version
+  const oldBeta = old.find(release => release.npmDistTag === 'beta').version
+  const newBeta = releases.find(release => release.npmDistTag === 'beta').version
+  const oldNpmCount = old.find(release => release.npmPackageName === 'electron').length
+  const newNpmCount = releases.find(release => release.npmPackageName === 'electron').length
+
+  if (
+    old.length === releases.length
+    && oldLatest === newLatest
+    && oldBeta === newBeta
+    && oldNpmCount === newNpmCount
+  ) {
+    console.log('module already has up-to-date versions and dist tags. exiting.')
+    process.exit()
+  }
 
   const fullFile = path.join(__dirname, '../index.json')
   fs.writeFileSync(fullFile, JSON.stringify(releases, null, 2))
