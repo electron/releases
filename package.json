@@ -25,6 +25,7 @@
     "build": "node script/build.js",
     "test": "mocha && standard --fix && standard-markdown",
     "prepack": "check-for-leaks",
-    "prepush": "check-for-leaks"
+    "prepush": "check-for-leaks",
+    "release": "node script/release.js"
   }
 }
