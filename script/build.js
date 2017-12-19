@@ -110,7 +110,6 @@ async function main () {
   console.log('processing changelogs to HTML')
   releases = await Promise.all(releases.map(processRelease))
 
-
   // Abort the build early if module is already up to date
   const old = require('..')
   const oldLatest = old.find(release => release.npmDistTag === 'latest').version
@@ -121,10 +120,10 @@ async function main () {
   const newNpmCount = releases.find(release => release.npmPackageName === 'electron').length
 
   if (
-    old.length === releases.length
-    && oldLatest === newLatest
-    && oldBeta === newBeta
-    && oldNpmCount === newNpmCount
+    old.length === releases.length &&
+    oldLatest === newLatest &&
+    oldBeta === newBeta &&
+    oldNpmCount === newNpmCount
   ) {
     console.log('module already has up-to-date versions and dist tags. exiting.')
     process.exit()
