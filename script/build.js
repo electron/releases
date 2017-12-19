@@ -10,6 +10,7 @@ const hubdown = require('hubdown')
 const GitHub = require('github')
 const got = require('got')
 const parseLinkHeader = require('parse-link-header')
+const {getPlatformFromFilename} = require('platform-utils')
 const github = new GitHub()
 
 // `electron` was once a different module on npm. prior to 1.3.1 it was
@@ -92,6 +93,15 @@ async function main () {
     // apply dist tags from npm (usually `latest` and `beta`)
     const npmDistTag = npmDistTaggedVersions[release.version]
     if (npmDistTag) release.npmDistTag = npmDistTag
+
+    if (release.assets) {
+      release.totalDownloads = release.assets
+        .reduce((acc, asset) => {
+          const platform = getPlatformFromFilename(asset.name)
+          if (platform) acc += asset.download_count
+          return acc
+        }, 0)
+    }
 
     return release
   })
