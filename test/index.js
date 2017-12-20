@@ -2,6 +2,7 @@ require('chai').should()
 const {describe, it} = require('mocha')
 const releases = require('..')
 const semver = require('semver')
+const flat = require('flat')
 
 describe('electron-releases', () => {
   it('is an array', () => {
@@ -10,6 +11,12 @@ describe('electron-releases', () => {
 
   it('contains over 270 releases', () => {
     releases.length.should.be.above(270)
+  })
+
+  it('uses snake_case for all properties', () => {
+    const keys = Object.keys(flat(releases))
+    keys.length.should.be.above(0)
+    keys.every(key => key.toLowerCase() === key).should.eq(true)
   })
 
   it('sets `tag_name` on every release', () => {
