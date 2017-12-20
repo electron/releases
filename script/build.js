@@ -81,19 +81,19 @@ async function main () {
     release.version = release.tag_name.substring(1)
 
     // published to npm? electron? electron-prebuilt?
-    if (npmVersions.includes(release.version)) release.npmPackageName = 'electron'
-    if (npmVersionsPrebuilt.includes(release.version)) release.npmPackageName = 'electron-prebuilt'
+    if (npmVersions.includes(release.version)) release.npm_package_name = 'electron'
+    if (npmVersionsPrebuilt.includes(release.version)) release.npm_package_name = 'electron-prebuilt'
 
     // weave in version data for V8, Chromium, Node.js, etc
     const deps = depData.find(version => version.version === release.version)
-    if (deps) release.dependencyVersions = deps
+    if (deps) release.deps = deps
 
     // apply dist tags from npm (usually `latest` and `beta`)
     const npmDistTag = npmDistTaggedVersions[release.version]
-    if (npmDistTag) release.npmDistTag = npmDistTag
+    if (npmDistTag) release.npm_dist_tag = npmDistTag
 
     if (release.assets) {
-      release.totalDownloads = release.assets
+      release.total_downloads = release.assets
         .reduce((acc, asset) => {
           const platform = getPlatformFromFilename(asset.name)
           if (platform) acc += asset.download_count
@@ -110,21 +110,20 @@ async function main () {
   console.log('processing changelogs to HTML')
   releases = await Promise.all(releases.map(processRelease))
 
-
   // Abort the build early if module is already up to date
   const old = require('..')
-  const oldLatest = old.find(release => release.npmDistTag === 'latest').version
-  const newLatest = releases.find(release => release.npmDistTag === 'latest').version
-  const oldBeta = old.find(release => release.npmDistTag === 'beta').version
-  const newBeta = releases.find(release => release.npmDistTag === 'beta').version
-  const oldNpmCount = old.find(release => release.npmPackageName === 'electron').length
-  const newNpmCount = releases.find(release => release.npmPackageName === 'electron').length
+  const oldLatest = old.find(release => release.npm_dist_tag === 'latest').version
+  const newLatest = releases.find(release => release.npm_dist_tag === 'latest').version
+  const oldBeta = old.find(release => release.npm_dist_tag === 'beta').version
+  const newBeta = releases.find(release => release.npm_dist_tag === 'beta').version
+  const oldNpmCount = old.find(release => release.npm_package_name === 'electron').length
+  const newNpmCount = releases.find(release => release.npm_package_name === 'electron').length
 
   if (
-    old.length === releases.length
-    && oldLatest === newLatest
-    && oldBeta === newBeta
-    && oldNpmCount === newNpmCount
+    old.length === releases.length &&
+    oldLatest === newLatest &&
+    oldBeta === newBeta &&
+    oldNpmCount === newNpmCount
   ) {
     console.log('module already has up-to-date versions and dist tags. exiting.')
     process.exit()
