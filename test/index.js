@@ -91,9 +91,6 @@ describe('electron-releases', () => {
   it('includes chrome, node, and v8 versions for all recent releases', () => {
     const recentReleases = releases.filter(release => semver.gte(release.version, '1.8.0'))
     recentReleases.length.should.be.above(5)
-    console.log(recentReleases.map(r => {
-      return {version: r.version, deps: r.deps}
-    }))
     recentReleases.every(release => {
       return release.deps &&
       release.deps.node.length &&
