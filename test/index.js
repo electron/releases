@@ -87,4 +87,15 @@ describe('electron-releases', () => {
     npmReleases.length.should.be.above(0)
     npmReleases.every(release => release.total_downloads > 0).should.eq(true)
   })
+
+  it('includes chrome, node, and v8 versions for all recent releases', () => {
+    const recentReleases = releases.filter(release => semver.gte(release.version, '1.8.0'))
+    recentReleases.length.should.be.above(5)
+    recentReleases.every(release => {
+      return release.deps &&
+      release.deps.node.length &&
+      release.deps.chrome.length &&
+      release.deps.v8.length
+    }).should.eq(true)
+  })
 })
