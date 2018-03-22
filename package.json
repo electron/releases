@@ -21,10 +21,13 @@
     "platform-utils": "^1.0.0",
     "semver": "^5.4.1",
     "standard": "^10.0.3",
-    "standard-markdown": "^4.0.2"
+    "standard-markdown": "^4.0.2",
+    "tableify": "^1.1.0"
   },
   "scripts": {
-    "build": "node script/build.js",
+    "build": "npm run collect && npm run update-readme",
+    "collect": "node script/collect.js",
+    "update-readme": "node script/update-readme.js",
     "test": "mocha && standard --fix && standard-markdown",
     "prepack": "check-for-leaks",
     "prepush": "check-for-leaks",
