@@ -7,11 +7,10 @@ const fs = require('fs')
 const path = require('path')
 const semver = require('semver')
 const hubdown = require('hubdown')
-const GitHub = require('github')
+const github = require('@octokit/rest')()
 const got = require('got')
 const parseLinkHeader = require('parse-link-header')
 const {getPlatformFromFilename} = require('platform-utils')
-const github = new GitHub()
 
 // `electron` was once a different module on npm. prior to 1.3.1 it was
 // published as `electron-prebuilt`
