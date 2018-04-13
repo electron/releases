@@ -73,38 +73,38 @@ async function main () {
   const depData = depDataRes.body
 
   releases = releases
-  .filter(release => !release.draft)
-  .filter(release => semver.valid(release.tag_name.substring(1)))
-  .map(release => {
+    .filter(release => !release.draft)
+    .filter(release => semver.valid(release.tag_name.substring(1)))
+    .map(release => {
     // derive version from tag_name for semver comparisons
-    release.version = release.tag_name.substring(1)
+      release.version = release.tag_name.substring(1)
 
-    // published to npm? electron? electron-prebuilt?
-    if (npmVersions.includes(release.version)) release.npm_package_name = 'electron'
-    if (npmVersionsPrebuilt.includes(release.version)) release.npm_package_name = 'electron-prebuilt'
+      // published to npm? electron? electron-prebuilt?
+      if (npmVersions.includes(release.version)) release.npm_package_name = 'electron'
+      if (npmVersionsPrebuilt.includes(release.version)) release.npm_package_name = 'electron-prebuilt'
 
-    // weave in version data for V8, Chromium, Node.js, etc
-    const deps = depData.find(version => version.version === release.version)
-    if (deps) release.deps = deps
+      // weave in version data for V8, Chromium, Node.js, etc
+      const deps = depData.find(version => version.version === release.version)
+      if (deps) release.deps = deps
 
-    // apply dist tags from npm (usually `latest` and `beta`)
-    const npmDistTag = npmDistTaggedVersions[release.version]
-    if (npmDistTag) release.npm_dist_tag = npmDistTag
+      // apply dist tags from npm (usually `latest` and `beta`)
+      const npmDistTag = npmDistTaggedVersions[release.version]
+      if (npmDistTag) release.npm_dist_tag = npmDistTag
 
-    if (release.assets) {
-      release.total_downloads = release.assets
-        .reduce((acc, asset) => {
-          const platform = getPlatformFromFilename(asset.name)
-          if (platform) acc += asset.download_count
-          return acc
-        }, 0)
-    }
+      if (release.assets) {
+        release.total_downloads = release.assets
+          .reduce((acc, asset) => {
+            const platform = getPlatformFromFilename(asset.name)
+            if (platform) acc += asset.download_count
+            return acc
+          }, 0)
+      }
 
-    return release
-  })
+      return release
+    })
 
-  // highest versions first
-  .sort((a, b) => semver.compare(b.version, a.version))
+    // highest versions first
+    .sort((a, b) => semver.compare(b.version, a.version))
 
   console.log('processing changelogs to HTML')
   releases = await Promise.all(releases.map(processRelease))
@@ -140,15 +140,15 @@ async function processRelease (release) {
   release.body = release.body
 
   // turn PR references like #123 into hyperlinks
-  .replace(
-    / #(\d+)$/gm,
-    ' <a href="https://github.com/electron/electron/pull/$1">#$1</a>'
-  )
+    .replace(
+      / #(\d+)$/gm,
+      ' <a href="https://github.com/electron/electron/pull/$1">#$1</a>'
+    )
 
-  // adjust heading levels (h2 becomes h3, etc)
-  .replace(/^#### /gm, '##### ')
-  .replace(/^### /gm, '#### ')
-  .replace(/^## /gm, '### ')
+    // adjust heading levels (h2 becomes h3, etc)
+    .replace(/^#### /gm, '##### ')
+    .replace(/^### /gm, '#### ')
+    .replace(/^## /gm, '### ')
 
   const parsed = await hubdown(release.body)
   release.body_html = parsed.content
