@@ -1,5 +1,7 @@
 # electron-releases 
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/electron/releases.svg)](https://greenkeeper.io/)
+
 > Complete and up-to-date info about every release of Electron.
 
 This package:
