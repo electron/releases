@@ -99,3 +99,30 @@ describe('electron-releases', () => {
     }).should.eq(true)
   })
 })
+
+describe('electron-releases/lite.json', () => {
+  const lite = require('../lite.json')
+
+  it('is an array', () => {
+    lite.should.be.an('array')
+  })
+
+  it('contains over 270 releases', () => {
+    lite.length.should.be.above(270)
+  })
+
+  it('includes expected properties', () => {
+    const recentReleases = lite.filter(release => semver.gte(release.version, '1.8.0'))
+    recentReleases.length.should.be.above(5)
+    recentReleases.every(release => {
+      return release.tag_name &&
+      release.name &&
+      release.version &&
+      release.published_at &&
+      release.deps &&
+      release.deps.node.length &&
+      release.deps.chrome.length &&
+      release.deps.v8.length
+    }).should.eq(true)
+  })
+})

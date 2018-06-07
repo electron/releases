@@ -24,8 +24,9 @@
     "standard-markdown": "^4.0.2"
   },
   "scripts": {
-    "build": "npm run collect && npm run update-readme",
+    "build": "npm run collect && npm run lite && npm run update-readme",
     "collect": "node script/collect.js",
+    "lite": "node script/lite.js > lite.json",
     "update-readme": "node script/update-readme.js",
     "test": "mocha && standard --fix && standard-markdown",
     "prepack": "check-for-leaks",
