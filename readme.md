@@ -365,6 +365,19 @@ releases.find(release => release.npm_dist_tag === 'latest')
 releases.find(release => release.npm_dist_tag === 'beta')
 ```
 
+## Lite Version
+
+The default export is about 10MB, as it includes a lot of metadata from the 
+GitHub API like release assets.
+
+If you just need the basic info like version numbers, npm dist tags, and publish dates, there's a much smaller (<200K) dataset you can use:
+
+```js
+require('electron-releases/lite.json')
+```
+
+You can also get this at [unpkg.com/electron-releases/lite.json](https://unpkg.com/electron-releases/lite.json)
+
 ### Data
 
 Each release contains all the data returned by the 
