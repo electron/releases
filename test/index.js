@@ -98,6 +98,16 @@ describe('electron-releases', () => {
       release.deps.v8.length
     }).should.eq(true)
   })
+
+  it('replace #123 reference into hyperlink', () => {
+    const fixture = require('./fixtures/markdown_hyperlink')
+    const hyperBody = fixture.release_body.replace(
+      /#(\d+)/gm,
+      ' <a href="https://github.com/electron/electron/pull/$1">#$1</a>'
+    )
+    hyperBody.should.contain('<a href="https://github.com/electron/electron/pull/13370">#13370</a>')
+    hyperBody.should.contain('<a href="https://github.com/electron/electron/pull/13452">#13452</a>')
+  })
 })
 
 describe('electron-releases/lite.json', () => {
