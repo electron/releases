@@ -11,6 +11,7 @@ const github = require('@octokit/rest')()
 const got = require('got')
 const parseLinkHeader = require('parse-link-header')
 const {getPlatformFromFilename} = require('platform-utils')
+const escapeHtml = require('escape-html')
 
 // `electron` was once a different module on npm. prior to 1.3.1 it was
 // published as `electron-prebuilt`
@@ -111,21 +112,24 @@ async function main () {
 
   // Abort the build early if module is already up to date
   const old = require('..')
-  const oldLatest = old.find(release => release.npm_dist_tag === 'latest').version
-  const newLatest = releases.find(release => release.npm_dist_tag === 'latest').version
-  const oldBeta = old.find(release => release.npm_dist_tag === 'beta').version
-  const newBeta = releases.find(release => release.npm_dist_tag === 'beta').version
-  const oldNpmCount = old.find(release => release.npm_package_name === 'electron').length
-  const newNpmCount = releases.find(release => release.npm_package_name === 'electron').length
 
-  if (
-    old.length === releases.length &&
-    oldLatest === newLatest &&
-    oldBeta === newBeta &&
-    oldNpmCount === newNpmCount
-  ) {
-    console.log('module already has up-to-date versions and dist tags. exiting.')
-    process.exit()
+  if (old.length) {
+    const oldLatest = old.find(release => release.npm_dist_tag === 'latest').version
+    const newLatest = releases.find(release => release.npm_dist_tag === 'latest').version
+    const oldBeta = old.find(release => release.npm_dist_tag === 'beta').version
+    const newBeta = releases.find(release => release.npm_dist_tag === 'beta').version
+    const oldNpmCount = old.find(release => release.npm_package_name === 'electron').length
+    const newNpmCount = releases.find(release => release.npm_package_name === 'electron').length
+
+    if (
+      old.length === releases.length &&
+      oldLatest === newLatest &&
+      oldBeta === newBeta &&
+      oldNpmCount === newNpmCount
+    ) {
+      console.log('module already has up-to-date versions and dist tags. exiting.')
+      process.exit()
+    }
   }
 
   const fullFile = path.join(__dirname, '../index.json')
@@ -137,7 +141,7 @@ async function main () {
 
 async function processRelease (release) {
   release.version = release.tag_name.substring(1)
-  release.body = release.body
+  release.body = escapeHtml(release.body)
 
   // turn PR references like #123 into hyperlinks
     .replace(

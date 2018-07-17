@@ -32,5 +32,8 @@
     "prepack": "check-for-leaks",
     "prepush": "check-for-leaks",
     "release": "./script/release.sh"
+  },
+  "dependencies": {
+    "escape-html": "^1.0.3"
   }
 }
