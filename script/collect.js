@@ -118,7 +118,7 @@ async function main () {
   const oldNpmCount = old.find(release => release.npm_package_name === 'electron').length
   const newNpmCount = releases.find(release => release.npm_package_name === 'electron').length
 
-  const diffNotesCount = old.filter((release, index) => release.body !== releases[index].body).length
+  const diffNotesCount = old.some((release, index) => release.body !== releases[index].body)
 
   if (
     old.length === releases.length &&
