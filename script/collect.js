@@ -118,11 +118,14 @@ async function main () {
   const oldNpmCount = old.find(release => release.npm_package_name === 'electron').length
   const newNpmCount = releases.find(release => release.npm_package_name === 'electron').length
 
+  const diffNotesCount = old.filter((release, index) => release.body !== releases[index].body).length
+
   if (
     old.length === releases.length &&
     oldLatest === newLatest &&
     oldBeta === newBeta &&
-    oldNpmCount === newNpmCount
+    oldNpmCount === newNpmCount &&
+    diffNotesCount === 0
   ) {
     console.log('module already has up-to-date versions and dist tags. exiting.')
     process.exit()
