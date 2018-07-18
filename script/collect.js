@@ -115,19 +115,22 @@ async function main () {
   const newLatest = releases.find(release => release.npm_dist_tag === 'latest').version
   const oldBeta = old.find(release => release.npm_dist_tag === 'beta').version
   const newBeta = releases.find(release => release.npm_dist_tag === 'beta').version
-  const oldNpmCount = old.find(release => release.npm_package_name === 'electron').length
-  const newNpmCount = releases.find(release => release.npm_package_name === 'electron').length
+  const oldNpmCount = old.filter(release => release.npm_package_name === 'electron').length
+  const newNpmCount = releases.filter(release => release.npm_package_name === 'electron').length
 
-  const diffNotesCount = old.some((release, index) => release.body !== releases[index].body)
+  const releaseBodyChanged = old.some((oldRelease) => {
+    const newRelease = releases.find(release => release.version === oldRelease.version)
+    return !newRelease || newRelease.body !== oldRelease.body
+  })
 
   if (
     old.length === releases.length &&
     oldLatest === newLatest &&
     oldBeta === newBeta &&
     oldNpmCount === newNpmCount &&
-    diffNotesCount === 0
+    !releaseBodyChanged
   ) {
-    console.log('module already has up-to-date versions and dist tags. exiting.')
+    console.log('module content is already up to date. exiting.')
     process.exit()
   }
 
