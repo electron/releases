@@ -28,6 +28,7 @@
     "collect": "node script/collect.js",
     "lite": "node script/lite.js > lite.json",
     "update-readme": "node script/update-readme.js",
+    "pretest": "npm run build",
     "test": "mocha && standard --fix && standard-markdown",
     "prepack": "check-for-leaks",
     "prepush": "check-for-leaks",
