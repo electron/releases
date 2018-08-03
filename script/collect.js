@@ -147,7 +147,7 @@ async function processRelease (release) {
 
   // turn PR references like #123 into hyperlinks
     .replace(
-      /#(\d+)/gm,
+      / #(\d+)/gm,
       ' <a href="https://github.com/electron/electron/pull/$1">#$1</a>'
     )
 
