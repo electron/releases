@@ -16,6 +16,15 @@ This package:
 - ignores npm versions from the days before [Electron was `electron`](https://electronjs.org/blog/npm-install-electron).
 - is [updated regularly](#updates).
 
+## Sources
+
+This module collects metadata from various sources:
+
+- [GitHub Releases of `electron/electron`](https://github.com/electron/electron/release)
+- [dist-tags from npm registry for `electron`](https://registry.npmjs.com/electron)
+- [dist-tags from npm registry `electron-prebuilt`](https://registry.npmjs.com/electron-prebuilt)
+- [Dependency data for Chromium, Node.js, V8, etc](https://atom.io/download/electron/index.json)
+
 ## Releases
 
 <!-- START RELEASES TABLE -->
