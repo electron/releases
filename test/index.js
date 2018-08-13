@@ -98,6 +98,16 @@ describe('electron-releases', () => {
       release.deps.v8.length
     }).should.eq(true)
   })
+
+  it('replaces all PR references like `#123` with hyperlinks', () => {
+    const release1 = releases.find(release => release.version === '3.0.0-beta.1')
+    release1.body_html.should.contain('<a href="https://github.com/electron/electron/pull/13039">#13039</a>')
+    release1.body_html.should.contain('<a href="https://github.com/electron/electron/pull/12837">#12837</a>')
+
+    const release2 = releases.find(release => release.version === '2.0.0')
+    release2.body_html.should.contain('<a href="https://github.com/electron/electron/pull/12229">#12229</a>')
+    release2.body_html.should.contain('<a href="https://github.com/electron/electron/pull/11827">#11827</a>')
+  })
 })
 
 describe('electron-releases/lite.json', () => {
