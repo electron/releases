@@ -1,4 +1,4 @@
-# electron-releases 
+# electron-releases
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/electron/releases.svg)](https://greenkeeper.io/)
 
@@ -386,7 +386,7 @@ releases.find(release => release.npm_dist_tag === 'beta')
 
 ## Lite Version
 
-The default export is about 10MB, as it includes a lot of metadata from the 
+The default export is about 10MB, as it includes a lot of metadata from the
 GitHub API like release assets.
 
 If you just need the basic info like version numbers, npm dist tags, and publish dates, there's a much smaller (<200K) dataset you can use:
@@ -399,14 +399,14 @@ You can also get this at [unpkg.com/electron-releases/lite.json](https://unpkg.c
 
 ### Data
 
-Each release contains all the data returned by the 
-[GitHub Releases API](https://developer.github.com/v3/repos/releases/#get-a-single-release), 
+Each release contains all the data returned by the
+[GitHub Releases API](https://developer.github.com/v3/repos/releases/#get-a-single-release),
 plus some extra properties:
 
 - `version` (String) - the same thing as `dist_tag`, but without the `v` for convenient [semver comparisons](https://github.com/npm/node-semver#usage).
 - `npm_dist_tag` (String) - an [npm dist-tag](https://docs.npmjs.com/cli/dist-tag) like `latest` or `beta`. Most releases will not have this property.
 - `npm_package_name` (String) - For packages published to npm, this will be `electron` or `electron-prebuilt`. For packages not published to npm, this property will not exist.
-- `total_downloads` (Number) - Total downloads of all assets in the release that 
+- `total_downloads` (Number) - Total downloads of all assets in the release that
   have a [detectable platform](https://github.com/zeke/platform-utils#api) in their
   filename like `.zip`, `.dmg`, `.exe`, `.rpm`, `.deb`, etc.
 - `deps` (Object) - version numbers for Electron dependencies.
@@ -417,9 +417,9 @@ plus some extra properties:
 
 ## Updates
 
-This module is self-publishing. It runs in a 
-[Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler) 
-process every ten minutes. A new version of this module is published if any of 
+This module is self-publishing. It runs in a
+[Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler)
+process every ten minutes. A new version of this module is published if any of
 the following change:
 
 - number of Electron releases on GitHub
@@ -432,6 +432,26 @@ later. For more detail, see [script/release.sh](script/release.sh)
 
 The Heroku app is also synced to the GitHub repo, so every push to the
 `master` branch will automatically deploy a new version of this app.
+
+### Manually update
+
+If your change any file in the `script` folder you need to
+bump module the following steps:
+
+1. Create a [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#creating-a-token)
+1. Copy-paste `.env.example` by following command:
+    ```sh
+    cp .env.example .env
+    ```
+1. Paste your token to `.env` file
+1. Build the module
+    ```sh
+    npm run build
+    ```
+1. Check if all tests passed:
+    ```sh
+    npm test
+    ```
 
 ## Tests
 
