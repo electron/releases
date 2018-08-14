@@ -20,7 +20,7 @@ This package:
 
 This module collects metadata from various sources:
 
-- [GitHub Releases of `electron/electron`](https://github.com/electron/electron/release)
+- [GitHub Releases of `electron/electron`](https://github.com/electron/electron)
 - [dist-tags from npm registry for `electron`](https://registry.npmjs.com/electron)
 - [dist-tags from npm registry `electron-prebuilt`](https://registry.npmjs.com/electron-prebuilt)
 - [Dependency data for Chromium, Node.js, V8, etc](https://atom.io/download/electron/index.json)
