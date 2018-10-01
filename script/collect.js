@@ -46,25 +46,9 @@ async function main () {
     }, {})
 
   console.log('fetching GitHub Releases page count')
-  const countRes = await github.repos.getReleases(ghOpts({per_page: 1}))
-
-  let pagesToFetch
-  try {
-    const count = Number(parseLinkHeader(countRes.meta.link).last.page)
-    console.log(`found ${count} releases on GitHub`)
-    pagesToFetch = Math.ceil(count / 100)
-  } catch (err) {
-    console.error('problem fetching number of releases')
-    console.error(err)
-    process.exit(1)
-  }
-
-  console.log('fetching release data from GitHub')
   let releases = []
-  for (let i = 1; i <= pagesToFetch; i++) {
-    const batch = await github.repos.getReleases(ghOpts({page: i}))
-    releases = releases.concat(batch.data)
-  }
+  releases = releases.concat(await fetchAllRepoReleases('electron'))
+  releases = releases.concat(await fetchAllRepoReleases('nightlies'))
 
   console.log(`found ${releases.length} releases on GitHub`)
 
@@ -87,7 +71,7 @@ async function main () {
       const deps = depData.find(version => version.version === release.version)
       if (deps) release.deps = deps
 
-      // apply dist tags from npm (usually `latest` and `beta`)
+      // apply dist tags from npm (usually `latest`, `beta` or `nightly`)
       const npmDistTag = npmDistTaggedVersions[release.version]
       if (npmDistTag) release.npm_dist_tag = npmDistTag
 
@@ -162,11 +146,51 @@ async function processRelease (release) {
   return release
 }
 
-function ghOpts (opts) {
-  const defaults = {
-    owner: 'electron',
-    repo: 'electron',
-    per_page: 100
+class Options {
+  constructor(opts) {
+    const defaults = {
+      owner: 'electron',
+      repo: 'electron',
+      per_page: 100
+    }
+    this._opts = Object.assign({}, defaults, opts)
   }
-  return Object.assign({}, defaults, opts)
+
+  withRepo(repo) {
+    this._opts.repo = repo
+    return this
+  }
+
+  get() {
+    console.log(this._opts)
+    return this._opts
+  }
+}
+
+function ghOpts (opts) {
+  return new Options(opts)
+}
+
+async function fetchAllRepoReleases (repo) {
+  const countRes = await github.repos.getReleases(ghOpts({per_page: 1}).withRepo(repo).get())
+
+  let pagesToFetch
+  try {
+    const count = Number(parseLinkHeader(countRes.meta.link).last.page)
+    console.log(`found ${count} releases on GitHub for repo:`, repo)
+    pagesToFetch = Math.ceil(count / 100)
+  } catch (err) {
+    console.error('problem fetching number of releases for repo', repo)
+    console.error(err)
+    process.exit(1)
+  }
+
+  console.log('fetching release data from GitHub for repo', repo)
+  let releases = []
+  for (let i = 1; i <= pagesToFetch; i++) {
+    const batch = await github.repos.getReleases(ghOpts({page: i}).withRepo(repo).get())
+    releases = releases.concat(batch.data)
+  }
+
+  return releases
 }
