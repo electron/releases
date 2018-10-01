@@ -147,7 +147,7 @@ async function processRelease (release) {
 }
 
 class Options {
-  constructor(opts) {
+  constructor (opts) {
     const defaults = {
       owner: 'electron',
       repo: 'electron',
@@ -156,12 +156,12 @@ class Options {
     this._opts = Object.assign({}, defaults, opts)
   }
 
-  withRepo(repo) {
+  withRepo (repo) {
     this._opts.repo = repo
     return this
   }
 
-  get() {
+  get () {
     console.log(this._opts)
     return this._opts
   }
