@@ -41,7 +41,11 @@ async function main () {
   const distTags = npmElectronData.body['dist-tags']
   const npmDistTaggedVersions = Object.keys(distTags)
     .reduce((acc, key) => {
-      acc[distTags[key]] = key
+      if (!acc[distTags[key]]) {
+        acc[distTags[key]] = [key]
+      } else {
+        acc[distTags[key]].push(key)
+      }
       return acc
     }, {})
 
@@ -72,8 +76,7 @@ async function main () {
       if (deps) release.deps = deps
 
       // apply dist tags from npm (usually `latest`, `beta` or `nightly`)
-      const npmDistTag = npmDistTaggedVersions[release.version]
-      if (npmDistTag) release.npm_dist_tag = npmDistTag
+      release.npm_dist_tags = npmDistTaggedVersions[release.version] || []
 
       if (release.assets) {
         release.total_downloads = release.assets
@@ -93,12 +96,22 @@ async function main () {
   console.log('processing changelogs to HTML')
   releases = await Promise.all(releases.map(processRelease))
 
-  // Abort the build early if module is already up to date
+  // Compare the old data to the new data
+  // and abort the build early if key data hasn't changed.
   const old = require('..')
-  const oldLatest = old.find(release => release.npm_dist_tag === 'latest').version
-  const newLatest = releases.find(release => release.npm_dist_tag === 'latest').version
-  const oldBeta = old.find(release => release.npm_dist_tag === 'beta').version
-  const newBeta = releases.find(release => release.npm_dist_tag === 'beta').version
+  // Convert the 2.x npm_dist_tag (string) format to the
+  // 3.x npm_dist_tags (array) format.
+  // This can be removed once a 3.x release is published.
+  old.forEach(release => {
+    if (release.npm_dist_tag) {
+      release.npm_dist_tags = [release.npm_dist_tag]
+      delete release.npm_dist_tag
+    }
+  })
+  const oldLatest = old.find(hasNpmDistTag('latest')).version
+  const newLatest = releases.find(hasNpmDistTag('latest')).version
+  const oldBeta = old.find(hasNpmDistTag('beta')).version
+  const newBeta = releases.find(hasNpmDistTag('beta')).version
   const oldNpmCount = old.filter(release => release.npm_package_name === 'electron').length
   const newNpmCount = releases.filter(release => release.npm_package_name === 'electron').length
 
@@ -124,6 +137,16 @@ async function main () {
 }
 
 // helpers
+
+function hasNpmDistTag (tag) {
+  return function (release) {
+    if (!release.npm_dist_tags) {
+      return false
+    }
+
+    return release.npm_dist_tags.includes(tag)
+  }
+}
 
 async function processRelease (release) {
   release.version = release.tag_name.substring(1)
