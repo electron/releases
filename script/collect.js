@@ -76,8 +76,7 @@ async function main () {
       if (deps) release.deps = deps
 
       // apply dist tags from npm (usually `latest`, `beta` or `nightly`)
-      const npmDistTags = npmDistTaggedVersions[release.version] || []
-      release.npm_dist_tags = npmDistTags
+      release.npm_dist_tags = npmDistTaggedVersions[release.version] || []
 
       if (release.assets) {
         release.total_downloads = release.assets
