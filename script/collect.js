@@ -97,10 +97,11 @@ async function main () {
   releases = await Promise.all(releases.map(processRelease))
 
   // Compare the old data to the new data
-  // and abort the build early if key data hasn't changed
+  // and abort the build early if key data hasn't changed.
   const old = require('..')
   // Convert the 2.x npm_dist_tag (string) format to the
-  // 3.x npm_dist_tags (array) format
+  // 3.x npm_dist_tags (array) format.
+  // This can be removed once a 3.x release is published.
   old.forEach(release => {
     if (release.npm_dist_tag) {
       release.npm_dist_tags = [release.npm_dist_tag]
