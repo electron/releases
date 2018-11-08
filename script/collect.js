@@ -42,9 +42,10 @@ async function main () {
   const npmDistTaggedVersions = Object.keys(distTags)
     .reduce((acc, key) => {
       if (!acc[distTags[key]]) {
-        acc[distTags[key]] = []
+        acc[distTags[key]] = [key]
+      } else {
+        acc[distTags[key]].push(key)
       }
-      acc[distTags[key]].push(key)
       return acc
     }, {})
 
