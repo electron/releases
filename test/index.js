@@ -48,12 +48,12 @@ describe('electron-releases', () => {
   })
 
   it('includes one release with the `beta` npm dist tag', () => {
-    const betas = releases.filter(release => release.npm_dist_tag === 'beta')
+    const betas = releases.filter(release => release.npm_dist_tags.includes('beta'))
     betas.length.should.eq(1)
   })
 
   it('includes one release with the `latest` npm dist tag', () => {
-    const latests = releases.filter(release => release.npm_dist_tag === 'latest')
+    const latests = releases.filter(release => release.npm_dist_tags.includes('latest'))
     latests.length.should.eq(1)
   })
 

@@ -2,7 +2,7 @@
   "name": "electron-releases",
   "description": "Complete and up-to-date info about every release of Electron",
   "repository": "https://github.com/electron/electron-releases",
-  "version": "2.66.0",
+  "version": "3.5.0",
   "main": "index.json",
   "license": "MIT",
   "devDependencies": {
@@ -21,7 +21,7 @@
     "platform-utils": "^1.0.0",
     "semver": "^5.4.1",
     "standard": "^12.0.0",
-    "standard-markdown": "^4.0.2"
+    "standard-markdown": "^5.0.0"
   },
   "scripts": {
     "build": "npm run collect && npm run lite && npm run update-readme",

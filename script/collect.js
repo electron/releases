@@ -41,30 +41,18 @@ async function main () {
   const distTags = npmElectronData.body['dist-tags']
   const npmDistTaggedVersions = Object.keys(distTags)
     .reduce((acc, key) => {
-      acc[distTags[key]] = key
+      if (!acc[distTags[key]]) {
+        acc[distTags[key]] = [key]
+      } else {
+        acc[distTags[key]].push(key)
+      }
       return acc
     }, {})
 
   console.log('fetching GitHub Releases page count')
-  const countRes = await github.repos.getReleases(ghOpts({per_page: 1}))
-
-  let pagesToFetch
-  try {
-    const count = Number(parseLinkHeader(countRes.meta.link).last.page)
-    console.log(`found ${count} releases on GitHub`)
-    pagesToFetch = Math.ceil(count / 100)
-  } catch (err) {
-    console.error('problem fetching number of releases')
-    console.error(err)
-    process.exit(1)
-  }
-
-  console.log('fetching release data from GitHub')
   let releases = []
-  for (let i = 1; i <= pagesToFetch; i++) {
-    const batch = await github.repos.getReleases(ghOpts({page: i}))
-    releases = releases.concat(batch.data)
-  }
+  releases = releases.concat(await fetchAllRepoReleases('electron'))
+  releases = releases.concat(await fetchAllRepoReleases('nightlies'))
 
   console.log(`found ${releases.length} releases on GitHub`)
 
@@ -87,9 +75,8 @@ async function main () {
       const deps = depData.find(version => version.version === release.version)
       if (deps) release.deps = deps
 
-      // apply dist tags from npm (usually `latest` and `beta`)
-      const npmDistTag = npmDistTaggedVersions[release.version]
-      if (npmDistTag) release.npm_dist_tag = npmDistTag
+      // apply dist tags from npm (usually `latest`, `beta` or `nightly`)
+      release.npm_dist_tags = npmDistTaggedVersions[release.version] || []
 
       if (release.assets) {
         release.total_downloads = release.assets
@@ -109,12 +96,22 @@ async function main () {
   console.log('processing changelogs to HTML')
   releases = await Promise.all(releases.map(processRelease))
 
-  // Abort the build early if module is already up to date
+  // Compare the old data to the new data
+  // and abort the build early if key data hasn't changed.
   const old = require('..')
-  const oldLatest = old.find(release => release.npm_dist_tag === 'latest').version
-  const newLatest = releases.find(release => release.npm_dist_tag === 'latest').version
-  const oldBeta = old.find(release => release.npm_dist_tag === 'beta').version
-  const newBeta = releases.find(release => release.npm_dist_tag === 'beta').version
+  // Convert the 2.x npm_dist_tag (string) format to the
+  // 3.x npm_dist_tags (array) format.
+  // This can be removed once a 3.x release is published.
+  old.forEach(release => {
+    if (release.npm_dist_tag) {
+      release.npm_dist_tags = [release.npm_dist_tag]
+      delete release.npm_dist_tag
+    }
+  })
+  const oldLatest = old.find(hasNpmDistTag('latest')).version
+  const newLatest = releases.find(hasNpmDistTag('latest')).version
+  const oldBeta = old.find(hasNpmDistTag('beta')).version
+  const newBeta = releases.find(hasNpmDistTag('beta')).version
   const oldNpmCount = old.filter(release => release.npm_package_name === 'electron').length
   const newNpmCount = releases.filter(release => release.npm_package_name === 'electron').length
 
@@ -141,6 +138,16 @@ async function main () {
 
 // helpers
 
+function hasNpmDistTag (tag) {
+  return function (release) {
+    if (!release.npm_dist_tags) {
+      return false
+    }
+
+    return release.npm_dist_tags.includes(tag)
+  }
+}
+
 async function processRelease (release) {
   release.version = release.tag_name.substring(1)
   release.body = release.body
@@ -162,11 +169,51 @@ async function processRelease (release) {
   return release
 }
 
-function ghOpts (opts) {
-  const defaults = {
-    owner: 'electron',
-    repo: 'electron',
-    per_page: 100
+class Options {
+  constructor (opts) {
+    const defaults = {
+      owner: 'electron',
+      repo: 'electron',
+      per_page: 100
+    }
+    this._opts = Object.assign({}, defaults, opts)
   }
-  return Object.assign({}, defaults, opts)
+
+  withRepo (repo) {
+    this._opts.repo = repo
+    return this
+  }
+
+  get () {
+    console.log(this._opts)
+    return this._opts
+  }
+}
+
+function ghOpts (opts) {
+  return new Options(opts)
+}
+
+async function fetchAllRepoReleases (repo) {
+  const countRes = await github.repos.getReleases(ghOpts({per_page: 1}).withRepo(repo).get())
+
+  let pagesToFetch
+  try {
+    const count = Number(parseLinkHeader(countRes.meta.link).last.page)
+    console.log(`found ${count} releases on GitHub for repo:`, repo)
+    pagesToFetch = Math.ceil(count / 100)
+  } catch (err) {
+    console.error('problem fetching number of releases for repo', repo)
+    console.error(err)
+    process.exit(1)
+  }
+
+  console.log('fetching release data from GitHub for repo', repo)
+  let releases = []
+  for (let i = 1; i <= pagesToFetch; i++) {
+    const batch = await github.repos.getReleases(ghOpts({page: i}).withRepo(repo).get())
+    releases = releases.concat(batch.data)
+  }
+
+  return releases
 }
