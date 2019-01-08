@@ -136,7 +136,7 @@ async function main () {
   if (
     old.length === releases.length &&
     oldLatest === newLatest &&
-    oldNightly === newNightly && 
+    oldNightly === newNightly &&
     oldBeta === newBeta &&
     oldNpmCount === newNpmCount &&
     !releaseBodyChanged
