@@ -37,17 +37,27 @@ async function main () {
     // filter out `electron-prebuilt` versions that were published in tandem with `electron` for a while.
     .filter(version => semver.lt(version, firstNpmVersion))
 
+  console.log('fetching list of `electron-nightly` releases on npm')
+  const npmElectronNightlyData = await got('https://registry.npmjs.com/electron-nightly', {json: true})
+  const npmVersionsNightly = Object.keys(npmElectronNightlyData.body.versions)
+
   console.log('fetching npm dist-tags')
   const distTags = npmElectronData.body['dist-tags']
+
   const npmDistTaggedVersions = Object.keys(distTags)
     .reduce((acc, key) => {
-      if (!acc[distTags[key]]) {
-        acc[distTags[key]] = [key]
-      } else {
-        acc[distTags[key]].push(key)
+      if (!key.match(/nightly/)) {
+        if (!acc[distTags[key]]) {
+          acc[distTags[key]] = [key]
+        } else {
+          acc[distTags[key]].push(key)
+        }
       }
       return acc
     }, {})
+
+  const latestNightly = npmElectronNightlyData.body['dist-tags'].latest
+  npmDistTaggedVersions[latestNightly] = ['nightly']
 
   console.log('fetching GitHub Releases page count')
   let releases = []
@@ -64,12 +74,13 @@ async function main () {
     .filter(release => !release.draft)
     .filter(release => semver.valid(release.tag_name.substring(1)))
     .map(release => {
-    // derive version from tag_name for semver comparisons
+      // derive version from tag_name for semver comparisons
       release.version = release.tag_name.substring(1)
 
       // published to npm? electron? electron-prebuilt?
       if (npmVersions.includes(release.version)) release.npm_package_name = 'electron'
       if (npmVersionsPrebuilt.includes(release.version)) release.npm_package_name = 'electron-prebuilt'
+      if (npmVersionsNightly.includes(release.version)) release.npm_package_name = 'electron-nightly'
 
       // weave in version data for V8, Chromium, Node.js, etc
       const deps = depData.find(version => version.version === release.version)
@@ -112,6 +123,8 @@ async function main () {
   const newLatest = releases.find(hasNpmDistTag('latest')).version
   const oldBeta = old.find(hasNpmDistTag('beta')).version
   const newBeta = releases.find(hasNpmDistTag('beta')).version
+  const oldNightly = old.find(hasNpmDistTag('nightly')).version
+  const newNightly = releases.find(hasNpmDistTag('nightly')).version
   const oldNpmCount = old.filter(release => release.npm_package_name === 'electron').length
   const newNpmCount = releases.filter(release => release.npm_package_name === 'electron').length
 
@@ -123,6 +136,7 @@ async function main () {
   if (
     old.length === releases.length &&
     oldLatest === newLatest &&
+    oldNightly === newNightly && 
     oldBeta === newBeta &&
     oldNpmCount === newNpmCount &&
     !releaseBodyChanged

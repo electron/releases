@@ -48,13 +48,18 @@ describe('electron-releases', () => {
   })
 
   it('includes one release with the `beta` npm dist tag', () => {
-    const betas = releases.filter(release => release.npm_dist_tags.includes('beta'))
-    betas.length.should.eq(1)
+    const beta = releases.filter(release => release.npm_dist_tags.includes('beta'))
+    beta.length.should.eq(1)
   })
 
   it('includes one release with the `latest` npm dist tag', () => {
-    const latests = releases.filter(release => release.npm_dist_tags.includes('latest'))
-    latests.length.should.eq(1)
+    const latest = releases.filter(release => release.npm_dist_tags.includes('latest'))
+    latest.length.should.eq(1)
+  })
+
+  it('includes one release with the `nightly` npm dist tag', () => {
+    const nightly = releases.filter(release => release.npm_dist_tags.includes('nightly'))
+    nightly.length.should.eq(1)
   })
 
   it('includes npm_package_name prop to indicate npm publish status', () => {
@@ -71,6 +76,11 @@ describe('electron-releases', () => {
     const npmReleasesOfElectron = releases.filter(release => release.npm_package_name === 'electron')
     npmReleasesOfElectron.length.should.be.above(0)
     npmReleasesOfElectron.every(release => semver.gte(release.version, '1.3.1')).should.eq(true)
+  })
+
+  it('sets `electron-nightly` as `npm_package_name` for nightly releases', () => {
+    const npmReleasesOfElectronNightly = releases.filter(release => release.npm_package_name === 'electron-nightly')
+    npmReleasesOfElectronNightly.length.should.be.above(0)
   })
 
   it('sets `electron-prebuilt` as `npm_package_name` for releases <1.3.1', () => {
