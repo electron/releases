@@ -44,14 +44,13 @@ async function main () {
   console.log('fetching npm dist-tags')
   const distTags = npmElectronData.body['dist-tags']
 
-  const npmDistTaggedVersions = Object.keys(distTags)
-    .reduce((acc, key) => {
-      if (!key.match(/nightly/)) {
-        if (!acc[distTags[key]]) {
-          acc[distTags[key]] = [key]
-        } else {
-          acc[distTags[key]].push(key)
-        }
+  const npmDistTaggedVersions = Object.entries(distTags)
+    .reduce((acc, tagAndVersion) => {
+      const [ tag, version ] = tagAndVersion
+      if (!tag.includes('nightly')) {
+        let o = acc[version]
+        if (!o) acc[version] = o = []
+        o.push(tag)
       }
       return acc
     }, {})
@@ -124,7 +123,7 @@ async function main () {
   const oldBeta = old.find(hasNpmDistTag('beta')).version
   const newBeta = releases.find(hasNpmDistTag('beta')).version
   const oldNightly = old.find(hasNpmDistTag('nightly')).version
-  const newNightly = releases.find(hasNpmDistTag('nightly')).version
+  const newNightly = latestNightly
   const oldNpmCount = old.filter(release => release.npm_package_name === 'electron').length
   const newNpmCount = releases.filter(release => release.npm_package_name === 'electron').length
 
@@ -154,11 +153,8 @@ async function main () {
 
 function hasNpmDistTag (tag) {
   return function (release) {
-    if (!release.npm_dist_tags) {
-      return false
-    }
-
-    return release.npm_dist_tags.includes(tag)
+    const tags = release.npm_dist_tags
+    return tags && tags.includes(tag)
   }
 }
 
