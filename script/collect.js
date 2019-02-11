@@ -118,11 +118,11 @@ async function main () {
       delete release.npm_dist_tag
     }
   })
-  const oldLatest = old.find(hasNpmDistTag('latest')).version
-  const newLatest = releases.find(hasNpmDistTag('latest')).version
-  const oldBeta = old.find(hasNpmDistTag('beta')).version
-  const newBeta = releases.find(hasNpmDistTag('beta')).version
-  const oldNightly = old.find(hasNpmDistTag('nightly')).version
+  const oldLatest = (old.find(hasNpmDistTag('latest')) || {}).version
+  const newLatest = (releases.find(hasNpmDistTag('latest')) || {}).version
+  const oldBeta = (old.find(hasNpmDistTag('beta')) || {}).version
+  const newBeta = (releases.find(hasNpmDistTag('beta')) || {}).version
+  const oldNightly = (old.find(hasNpmDistTag('nightly')) || {}).version
   const newNightly = latestNightly
   const oldNpmCount = old.filter(release => release.npm_package_name === 'electron').length
   const newNpmCount = releases.filter(release => release.npm_package_name === 'electron').length
