@@ -117,7 +117,7 @@ async function main () {
     }
   })
 
-  let tagsChanged;
+  let tagsChanged
   for (const tag of [ 'latest', 'beta', 'nightly' ]) {
     const oldVersion = findVersionForTag(old, tag, 'index.json')
     const newVersion = findVersionForTag(releases, tag, 'electron/electron and electron/nightlies repos')
@@ -155,7 +155,6 @@ const findVersionForTag = (releases, tag, source) => {
   }
   throw new Error(`No release with tag '${tag}' found in ${source}!`)
 }
-  
 
 async function processRelease (release) {
   release.version = release.tag_name.substring(1)
