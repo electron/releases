@@ -43,7 +43,6 @@ async function main () {
 
   console.log('fetching npm dist-tags')
   const distTags = npmElectronData.body['dist-tags']
-
   const npmDistTaggedVersions = Object.entries(distTags)
     .reduce((acc, tagAndVersion) => {
       const [ tag, version ] = tagAndVersion
@@ -54,15 +53,14 @@ async function main () {
       }
       return acc
     }, {})
-
   const latestNightly = npmElectronNightlyData.body['dist-tags'].latest
   npmDistTaggedVersions[latestNightly] = ['nightly']
+  console.log('fetched npmDistTaggedVersions:\n', npmDistTaggedVersions)
 
   console.log('fetching GitHub Releases page count')
   let releases = []
   releases = releases.concat(await fetchAllRepoReleases('electron'))
   releases = releases.concat(await fetchAllRepoReleases('nightlies'))
-
   console.log(`found ${releases.length} releases on GitHub`)
 
   console.log('fetching version data for deps like V8, Chromium, and Node.js')
@@ -118,15 +116,16 @@ async function main () {
       delete release.npm_dist_tag
     }
   })
-  const oldLatest = (old.find(hasNpmDistTag('latest')) || {}).version
-  const newLatest = (releases.find(hasNpmDistTag('latest')) || {}).version
-  const oldBeta = (old.find(hasNpmDistTag('beta')) || {}).version
-  const newBeta = (releases.find(hasNpmDistTag('beta')) || {}).version
-  const oldNightly = (old.find(hasNpmDistTag('nightly')) || {}).version
-  const newNightly = latestNightly
+
+  let tagsChanged;
+  for (const tag of [ 'latest', 'beta', 'nightly' ]) {
+    const oldVersion = findVersionForTag(old, tag, 'index.json')
+    const newVersion = findVersionForTag(releases, tag, 'electron/electron and electron/nightlies repos')
+    if (oldVersion !== newVersion) tagsChanged = true
+  }
+
   const oldNpmCount = old.filter(release => release.npm_package_name === 'electron').length
   const newNpmCount = releases.filter(release => release.npm_package_name === 'electron').length
-
   const releaseBodyChanged = old.some((oldRelease) => {
     const newRelease = releases.find(release => release.version === oldRelease.version)
     return !newRelease || newRelease.body !== oldRelease.body
@@ -134,10 +133,8 @@ async function main () {
 
   if (
     old.length === releases.length &&
-    oldLatest === newLatest &&
-    oldNightly === newNightly &&
-    oldBeta === newBeta &&
     oldNpmCount === newNpmCount &&
+    !tagsChanged &&
     !releaseBodyChanged
   ) {
     console.log('module content is already up to date. exiting.')
@@ -151,12 +148,14 @@ async function main () {
 
 // helpers
 
-function hasNpmDistTag (tag) {
-  return function (release) {
+const findVersionForTag = (releases, tag, source) => {
+  for (const release of releases) {
     const tags = release.npm_dist_tags
-    return tags && tags.includes(tag)
+    if (tags && tags.includes(tag)) return release.version
   }
+  throw new Error(`No release with tag '${tag}' found in ${source}!`)
 }
+  
 
 async function processRelease (release) {
   release.version = release.tag_name.substring(1)
