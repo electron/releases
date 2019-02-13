@@ -10,7 +10,7 @@ const hubdown = require('hubdown')
 const github = require('@octokit/rest')()
 const got = require('got')
 const parseLinkHeader = require('parse-link-header')
-const {getPlatformFromFilename} = require('platform-utils')
+const { getPlatformFromFilename } = require('platform-utils')
 
 // `electron` was once a different module on npm. prior to 1.3.1 it was
 // published as `electron-prebuilt`
@@ -25,20 +25,20 @@ main()
 
 async function main () {
   console.log('fetching list of `electron` releases on npm')
-  const npmElectronData = await got('https://registry.npmjs.com/electron', {json: true})
+  const npmElectronData = await got('https://registry.npmjs.com/electron', { json: true })
   const npmVersions = Object.keys(npmElectronData.body.versions)
     // filter out old versions of `electron` that were actually a different module
     .filter(version => semver.gte(version, firstNpmVersion))
 
   console.log('fetching list of `electron-prebuilt` releases on npm')
-  const npmElectronPrebuiltData = await got('https://registry.npmjs.com/electron-prebuilt', {json: true})
+  const npmElectronPrebuiltData = await got('https://registry.npmjs.com/electron-prebuilt', { json: true })
 
   const npmVersionsPrebuilt = Object.keys(npmElectronPrebuiltData.body.versions)
     // filter out `electron-prebuilt` versions that were published in tandem with `electron` for a while.
     .filter(version => semver.lt(version, firstNpmVersion))
 
   console.log('fetching list of `electron-nightly` releases on npm')
-  const npmElectronNightlyData = await got('https://registry.npmjs.com/electron-nightly', {json: true})
+  const npmElectronNightlyData = await got('https://registry.npmjs.com/electron-nightly', { json: true })
   const npmVersionsNightly = Object.keys(npmElectronNightlyData.body.versions)
 
   console.log('fetching npm dist-tags')
@@ -64,7 +64,7 @@ async function main () {
   console.log(`found ${releases.length} releases on GitHub`)
 
   console.log('fetching version data for deps like V8, Chromium, and Node.js')
-  const depDataRes = await got('https://atom.io/download/electron/index.json', {json: true})
+  const depDataRes = await got('https://atom.io/download/electron/index.json', { json: true })
   const depData = depDataRes.body
 
   releases = releases
@@ -203,7 +203,7 @@ function ghOpts (opts) {
 }
 
 async function fetchAllRepoReleases (repo) {
-  const countRes = await github.repos.getReleases(ghOpts({per_page: 1}).withRepo(repo).get())
+  const countRes = await github.repos.getReleases(ghOpts({ per_page: 1 }).withRepo(repo).get())
 
   let pagesToFetch
   try {
@@ -219,7 +219,7 @@ async function fetchAllRepoReleases (repo) {
   console.log('fetching release data from GitHub for repo', repo)
   let releases = []
   for (let i = 1; i <= pagesToFetch; i++) {
-    const batch = await github.repos.getReleases(ghOpts({page: i}).withRepo(repo).get())
+    const batch = await github.repos.getReleases(ghOpts({ page: i }).withRepo(repo).get())
     releases = releases.concat(batch.data)
   }
 

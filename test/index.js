@@ -1,5 +1,5 @@
 require('chai').should()
-const {describe, it} = require('mocha')
+const { describe, it } = require('mocha')
 const releases = require('..')
 const semver = require('semver')
 const flat = require('flat')
