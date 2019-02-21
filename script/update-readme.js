@@ -13,7 +13,7 @@ const data = versions.map(version => {
   return {
     Tag: `[${version.tag_name}](https://github.com/electron/electron/releases/tag/${version.tag_name})`,
     Published: version.published_at.substring(0, 10),
-    npm: version.npm_dist_tag || '',
+    npm: version.npm_dist_tags ? version.npm_dist_tags.join(', ') : '',
     Prerelease: version.prerelease ? 'yes' : 'no',
     Node: version.deps ? version.deps.node : '',
     Chrome: version.deps ? version.deps.chrome.split('.')[0] : '',
