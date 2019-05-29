@@ -8,7 +8,7 @@ action "Update data and release" {
   args = "run release"
   secrets = [
     "GH_TOKEN",
-    "NPM_AUTH_TOKEN"
+    "NPM_AUTH_TOKEN",
   ]
 }
 
