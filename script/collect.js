@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
 require('make-promises-safe')
-require('dotenv-safe').load()
+if (!process.env.GH_TOKEN) {
+  require('dotenv-safe').load()
+}
 
 const fs = require('fs')
 const path = require('path')
@@ -18,7 +20,7 @@ const firstNpmVersion = '1.3.1'
 
 github.authenticate({
   type: 'token',
-  token: process.env.GITHUB_AUTH_TOKEN
+  token: process.env.GH_TOKEN
 })
 
 main()
