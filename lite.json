@@ -1,5 +1,27 @@
 [
   {
+    "node_id": "MDc6UmVsZWFzZTE4MDk2NTE5",
+    "tag_name": "v7.0.0-nightly.20190619",
+    "name": "electron v7.0.0-nightly.20190619",
+    "prerelease": true,
+    "published_at": "2019-06-19T18:03:41Z",
+    "version": "7.0.0-nightly.20190619",
+    "npm_package_name": "electron-nightly",
+    "deps": {
+      "node": "12.0.0",
+      "v8": "7.7.13-electron.0",
+      "uv": "1.27.0",
+      "zlib": "1.2.11",
+      "openssl": "1.1.0",
+      "modules": "73",
+      "chrome": "77.0.3815.0"
+    },
+    "npm_dist_tags": [
+      "nightly"
+    ],
+    "total_downloads": 8
+  },
+  {
     "node_id": "MDc6UmVsZWFzZTE4MDY3Njc4",
     "tag_name": "v7.0.0-nightly.20190618",
     "name": "electron v7.0.0-nightly.20190618",
@@ -16,10 +38,8 @@
       "modules": "73",
       "chrome": "77.0.3815.0"
     },
-    "npm_dist_tags": [
-      "nightly"
-    ],
-    "total_downloads": 8
+    "npm_dist_tags": [],
+    "total_downloads": 11
   },
   {
     "node_id": "MDc6UmVsZWFzZTE4MDIyODc3",
@@ -358,7 +378,7 @@
       "chrome": "76.0.3784.0"
     },
     "npm_dist_tags": [],
-    "total_downloads": 59
+    "total_downloads": 60
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2MDQxNDA1",
@@ -398,7 +418,7 @@
       "chrome": "72.0.3626.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 146
+    "total_downloads": 156
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1NTE1ODg1",
@@ -441,7 +461,7 @@
       "beta",
       "beta-6-0-x"
     ],
-    "total_downloads": 25
+    "total_downloads": 73
   },
   {
     "node_id": "MDc6UmVsZWFzZTE4MDAzOTY2",
@@ -461,7 +481,7 @@
       "chrome": "76.0.3809.26"
     },
     "npm_dist_tags": [],
-    "total_downloads": 158
+    "total_downloads": 166
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3OTI1MDA4",
@@ -481,7 +501,7 @@
       "chrome": "76.0.3809.22"
     },
     "npm_dist_tags": [],
-    "total_downloads": 249
+    "total_downloads": 255
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3NzgzNDMy",
@@ -541,7 +561,7 @@
       "chrome": "76.0.3783.1"
     },
     "npm_dist_tags": [],
-    "total_downloads": 278
+    "total_downloads": 279
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3MzUwNDY5",
@@ -561,7 +581,7 @@
       "chrome": "76.0.3783.1"
     },
     "npm_dist_tags": [],
-    "total_downloads": 352
+    "total_downloads": 355
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3MjExNDcz",
@@ -624,7 +644,7 @@
       "latest",
       "5-0-x"
     ],
-    "total_downloads": 4350
+    "total_downloads": 5822
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3Nzc5NzU1",
@@ -644,7 +664,7 @@
       "chrome": "73.0.3683.121"
     },
     "npm_dist_tags": [],
-    "total_downloads": 8162
+    "total_downloads": 8278
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3NTIzOTE5",
@@ -664,7 +684,7 @@
       "chrome": "73.0.3683.121"
     },
     "npm_dist_tags": [],
-    "total_downloads": 20467
+    "total_downloads": 20673
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3MTQzMTgz",
@@ -684,7 +704,7 @@
       "chrome": "73.0.3683.121"
     },
     "npm_dist_tags": [],
-    "total_downloads": 23725
+    "total_downloads": 23977
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2OTMyNzI4",
@@ -704,7 +724,7 @@
       "chrome": "73.0.3683.119"
     },
     "npm_dist_tags": [],
-    "total_downloads": 15528
+    "total_downloads": 15622
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1MTE1NTQ3",
@@ -786,7 +806,7 @@
     "npm_dist_tags": [
       "beta-5-0-x"
     ],
-    "total_downloads": 530
+    "total_downloads": 532
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2NTYwNjEw",
@@ -806,7 +826,7 @@
       "chrome": "73.0.3683.104"
     },
     "npm_dist_tags": [],
-    "total_downloads": 1355
+    "total_downloads": 1357
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2Mzk0NTMw",
@@ -826,7 +846,7 @@
       "chrome": "73.0.3683.94"
     },
     "npm_dist_tags": [],
-    "total_downloads": 2011
+    "total_downloads": 2030
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2MjM3MDg1",
@@ -886,7 +906,7 @@
       "chrome": "73.0.3683.54"
     },
     "npm_dist_tags": [],
-    "total_downloads": 444
+    "total_downloads": 445
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1NTc0MTQ4",
@@ -946,7 +966,7 @@
       "chrome": "72.0.3626.52"
     },
     "npm_dist_tags": [],
-    "total_downloads": 1609
+    "total_downloads": 1614
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3Nzc1NzY3",
@@ -968,7 +988,7 @@
     "npm_dist_tags": [
       "4-2-x"
     ],
-    "total_downloads": 5485
+    "total_downloads": 6291
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3NjkzMDky",
@@ -988,7 +1008,7 @@
       "chrome": "69.0.3497.128"
     },
     "npm_dist_tags": [],
-    "total_downloads": 5770
+    "total_downloads": 5848
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3NDA4NDI4",
@@ -1008,7 +1028,7 @@
       "chrome": "69.0.3497.128"
     },
     "npm_dist_tags": [],
-    "total_downloads": 7963
+    "total_downloads": 8019
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3MzUwMDc1",
@@ -1028,7 +1048,7 @@
       "chrome": "69.0.3497.128"
     },
     "npm_dist_tags": [],
-    "total_downloads": 1557
+    "total_downloads": 1561
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3MTIxODMx",
@@ -1048,7 +1068,7 @@
       "chrome": "69.0.3497.128"
     },
     "npm_dist_tags": [],
-    "total_downloads": 8543
+    "total_downloads": 8623
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2OTYwOTk0",
@@ -1070,7 +1090,7 @@
     "npm_dist_tags": [
       "4-1-x"
     ],
-    "total_downloads": 8705
+    "total_downloads": 8815
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2NTYzOTA3",
@@ -1090,7 +1110,7 @@
       "chrome": "69.0.3497.128"
     },
     "npm_dist_tags": [],
-    "total_downloads": 35172
+    "total_downloads": 35315
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2NDQyMjk4",
@@ -1110,7 +1130,7 @@
       "chrome": "69.0.3497.128"
     },
     "npm_dist_tags": [],
-    "total_downloads": 12589
+    "total_downloads": 12661
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2NDIwNjIy",
@@ -1130,7 +1150,7 @@
       "chrome": "69.0.3497.128"
     },
     "npm_dist_tags": [],
-    "total_downloads": 2168
+    "total_downloads": 2170
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2MjQ0MDc3",
@@ -1150,7 +1170,7 @@
       "chrome": "69.0.3497.128"
     },
     "npm_dist_tags": [],
-    "total_downloads": 16306
+    "total_downloads": 16318
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2MTAxMzQz",
@@ -1170,7 +1190,7 @@
       "chrome": "69.0.3497.128"
     },
     "npm_dist_tags": [],
-    "total_downloads": 15710
+    "total_downloads": 15776
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1OTc5ODU5",
@@ -1192,7 +1212,7 @@
     "npm_dist_tags": [
       "4-0-x"
     ],
-    "total_downloads": 12608
+    "total_downloads": 12654
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1OTA2NTEz",
@@ -1212,7 +1232,7 @@
       "chrome": "69.0.3497.128"
     },
     "npm_dist_tags": [],
-    "total_downloads": 9986
+    "total_downloads": 9991
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1NzkzNzA3",
@@ -1232,7 +1252,7 @@
       "chrome": "69.0.3497.106"
     },
     "npm_dist_tags": [],
-    "total_downloads": 10993
+    "total_downloads": 11003
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1NTcxNzA3",
@@ -1252,7 +1272,7 @@
       "chrome": "69.0.3497.106"
     },
     "npm_dist_tags": [],
-    "total_downloads": 21785
+    "total_downloads": 21843
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1MzI4NjE0",
@@ -1272,7 +1292,7 @@
       "chrome": "69.0.3497.106"
     },
     "npm_dist_tags": [],
-    "total_downloads": 28789
+    "total_downloads": 28849
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1MjI4MjIz",
@@ -1292,7 +1312,7 @@
       "chrome": "69.0.3497.106"
     },
     "npm_dist_tags": [],
-    "total_downloads": 9205
+    "total_downloads": 9245
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1MTE2OTE1",
@@ -1312,7 +1332,7 @@
       "chrome": "69.0.3497.106"
     },
     "npm_dist_tags": [],
-    "total_downloads": 13881
+    "total_downloads": 13902
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0ODA4ODE5",
@@ -1332,7 +1352,7 @@
       "chrome": "69.0.3497.106"
     },
     "npm_dist_tags": [],
-    "total_downloads": 41064
+    "total_downloads": 41181
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0NjQ1MzAx",
@@ -1352,7 +1372,7 @@
       "chrome": "69.0.3497.106"
     },
     "npm_dist_tags": [],
-    "total_downloads": 32827
+    "total_downloads": 32993
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzMzUxNDI2",
@@ -1372,7 +1392,7 @@
       "chrome": "69.0.3497.106"
     },
     "npm_dist_tags": [],
-    "total_downloads": 1322
+    "total_downloads": 1323
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzMjgxMDc0",
@@ -1574,7 +1594,7 @@
       "chrome": "69.0.3497.106"
     },
     "npm_dist_tags": [],
-    "total_downloads": 2016
+    "total_downloads": 2024
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzNzY3MjQ4",
@@ -1694,7 +1714,7 @@
       "chrome": "69.0.3497.106"
     },
     "npm_dist_tags": [],
-    "total_downloads": 1191
+    "total_downloads": 1193
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3ODMyNTIx",
@@ -1716,7 +1736,7 @@
     "npm_dist_tags": [
       "3-1-x"
     ],
-    "total_downloads": 1711
+    "total_downloads": 1846
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3NjU5OTc0",
@@ -1736,7 +1756,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 1883
+    "total_downloads": 1958
   },
   {
     "node_id": "MDc6UmVsZWFzZTE3MDkyNTU4",
@@ -1756,7 +1776,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 4990
+    "total_downloads": 5015
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2NDIwNjM3",
@@ -1776,7 +1796,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 22188
+    "total_downloads": 22358
   },
   {
     "node_id": "MDc6UmVsZWFzZTE2MjY4ODI0",
@@ -1796,7 +1816,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 7426
+    "total_downloads": 7501
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1OTg2NzMy",
@@ -1816,7 +1836,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 21125
+    "total_downloads": 21214
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1OTA2NzU2",
@@ -1836,7 +1856,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 1383
+    "total_downloads": 1385
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1NTkxMTUw",
@@ -1856,7 +1876,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 5771
+    "total_downloads": 5779
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1MzAyOTg2",
@@ -1876,7 +1896,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 17441
+    "total_downloads": 17477
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1MTcwOTc4",
@@ -1896,7 +1916,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 6240
+    "total_downloads": 6245
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0OTcwODkw",
@@ -1916,7 +1936,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 8512
+    "total_downloads": 8538
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0ODM4ODIx",
@@ -2060,7 +2080,7 @@
     "npm_dist_tags": [
       "3-0-x"
     ],
-    "total_downloads": 1944
+    "total_downloads": 1958
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1Mjk1ODYz",
@@ -2080,7 +2100,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 607
+    "total_downloads": 608
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0ODEyMTE2",
@@ -2100,7 +2120,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 11485
+    "total_downloads": 11486
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0NTc3NjA2",
@@ -2120,7 +2140,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 37381
+    "total_downloads": 37390
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0NTQ2OTkz",
@@ -2140,7 +2160,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 6390
+    "total_downloads": 6395
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0NDUzNTkw",
@@ -2160,7 +2180,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 12404
+    "total_downloads": 12433
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0MDg0OTIw",
@@ -2180,7 +2200,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 52658
+    "total_downloads": 52736
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzOTY2MjAy",
@@ -2200,7 +2220,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 11838
+    "total_downloads": 11850
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzODQxODUw",
@@ -2220,7 +2240,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 18904
+    "total_downloads": 18932
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzNzY3Mjk4",
@@ -2240,7 +2260,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 15052
+    "total_downloads": 15059
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzNjQzNTEy",
@@ -2260,7 +2280,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 14793
+    "total_downloads": 14806
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzNTI0MDgw",
@@ -2280,7 +2300,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 11661
+    "total_downloads": 11669
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzMzY0Nzk0",
@@ -2300,7 +2320,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 21140
+    "total_downloads": 21145
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzMjg4MjUz",
@@ -2320,7 +2340,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 14277
+    "total_downloads": 14296
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzMTM3NjY2",
@@ -2340,7 +2360,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 17688
+    "total_downloads": 17725
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzMTE3MTEx",
@@ -2360,7 +2380,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 2959
+    "total_downloads": 2969
   },
   {
     "node_id": "MDc6UmVsZWFzZTEyOTY0ODE2",
@@ -2380,7 +2400,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 128763
+    "total_downloads": 129656
   },
   {
     "node_id": "MDc6UmVsZWFzZTEyNzMxMTU4",
@@ -2679,7 +2699,7 @@
       "chrome": "66.0.3359.181"
     },
     "npm_dist_tags": [],
-    "total_downloads": 1505
+    "total_downloads": 1506
   },
   {
     "node_id": "MDc6UmVsZWFzZTExODYyMzMy",
@@ -2763,7 +2783,7 @@
     "npm_dist_tags": [
       "2-0-x"
     ],
-    "total_downloads": 30381
+    "total_downloads": 30796
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1Mjk1MzQ3",
@@ -2783,7 +2803,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 11335
+    "total_downloads": 11351
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0NjAzMTEy",
@@ -2803,7 +2823,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 24553
+    "total_downloads": 24629
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0NTIyNDIy",
@@ -2843,7 +2863,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 15880
+    "total_downloads": 15889
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzNzY3MzA1",
@@ -2863,7 +2883,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 17398
+    "total_downloads": 17419
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzNTI0MDg5",
@@ -2883,7 +2903,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 30526
+    "total_downloads": 30533
   },
   {
     "node_id": "MDc6UmVsZWFzZTEzMTg1MTk2",
@@ -2903,7 +2923,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 17822
+    "total_downloads": 17828
   },
   {
     "node_id": "MDc6UmVsZWFzZTEyOTc1Nzcw",
@@ -2923,7 +2943,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 13203
+    "total_downloads": 13215
   },
   {
     "node_id": "MDc6UmVsZWFzZTEyODE4ODc2",
@@ -2943,7 +2963,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 36158
+    "total_downloads": 36252
   },
   {
     "node_id": "MDc6UmVsZWFzZTEyNTI3MjI0",
@@ -2963,7 +2983,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 51869
+    "total_downloads": 51891
   },
   {
     "node_id": "MDc6UmVsZWFzZTEyNDkxMzc2",
@@ -3023,7 +3043,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 37384
+    "total_downloads": 37398
   },
   {
     "node_id": "MDc6UmVsZWFzZTEyMTk0OTg4",
@@ -3043,7 +3063,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 43248
+    "total_downloads": 43265
   },
   {
     "node_id": "MDc6UmVsZWFzZTExOTIxMzUy",
@@ -3063,7 +3083,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 39718
+    "total_downloads": 39724
   },
   {
     "node_id": "MDc6UmVsZWFzZTExNzY0NjQ0",
@@ -3083,7 +3103,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 30219
+    "total_downloads": 30223
   },
   {
     "node_id": "MDc6UmVsZWFzZTExNTg3OTI0",
@@ -3103,7 +3123,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 22375
+    "total_downloads": 22384
   },
   {
     "node_id": "MDc6UmVsZWFzZTExMTIwOTcy",
@@ -3123,7 +3143,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 83108
+    "total_downloads": 83147
   },
   {
     "node_id": "MDc6UmVsZWFzZTExMDMyNDI1",
@@ -3143,7 +3163,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 25701
+    "total_downloads": 25774
   },
   {
     "node_id": "MDc6UmVsZWFzZTEwODAyMzg4",
@@ -3163,7 +3183,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 106990
+    "total_downloads": 107150
   },
   {
     "node_id": "MDc6UmVsZWFzZTEwNzM3MjM0",
@@ -3203,7 +3223,7 @@
       "chrome": "61.0.3163.100"
     },
     "npm_dist_tags": [],
-    "total_downloads": 8117
+    "total_downloads": 8120
   },
   {
     "node_id": "MDc6UmVsZWFzZTEwMjg2OTA2",
@@ -3345,7 +3365,7 @@
     "npm_dist_tags": [
       "1-8-x"
     ],
-    "total_downloads": 260111
+    "total_downloads": 261274
   },
   {
     "node_id": "MDc6UmVsZWFzZTExMDMyMzQz",
@@ -3365,7 +3385,7 @@
       "chrome": "59.0.3071.115"
     },
     "npm_dist_tags": [],
-    "total_downloads": 131593
+    "total_downloads": 131654
   },
   {
     "node_id": "MDc6UmVsZWFzZTEwNzQzMDcz",
@@ -3385,7 +3405,7 @@
       "chrome": "59.0.3071.115"
     },
     "npm_dist_tags": [],
-    "total_downloads": 38609
+    "total_downloads": 38614
   },
   {
     "node_id": "MDc6UmVsZWFzZTEwNzM5MjAz",
@@ -3425,7 +3445,7 @@
       "chrome": "59.0.3071.115"
     },
     "npm_dist_tags": [],
-    "total_downloads": 131423
+    "total_downloads": 131475
   },
   {
     "node_id": "MDc6UmVsZWFzZTk5NDU1MjQ=",
@@ -3445,7 +3465,7 @@
       "chrome": "59.0.3071.115"
     },
     "npm_dist_tags": [],
-    "total_downloads": 61101
+    "total_downloads": 61106
   },
   {
     "node_id": "MDc6UmVsZWFzZTk1NjIxNDI=",
@@ -3465,7 +3485,7 @@
       "chrome": "59.0.3071.115"
     },
     "npm_dist_tags": [],
-    "total_downloads": 83822
+    "total_downloads": 83840
   },
   {
     "node_id": "MDc6UmVsZWFzZTk0NzM1MTU=",
@@ -3505,7 +3525,7 @@
       "chrome": "59.0.3071.115"
     },
     "npm_dist_tags": [],
-    "total_downloads": 3739
+    "total_downloads": 3740
   },
   {
     "node_id": "MDc6UmVsZWFzZTg3NDA4MjE=",
@@ -3585,7 +3605,7 @@
       "chrome": "59.0.3071.115"
     },
     "npm_dist_tags": [],
-    "total_downloads": 66941
+    "total_downloads": 66962
   },
   {
     "node_id": "MDc6UmVsZWFzZTg4NjA3NzA=",
@@ -3604,7 +3624,7 @@
       "chrome": "59.0.3071.115"
     },
     "npm_dist_tags": [],
-    "total_downloads": 155429
+    "total_downloads": 155669
   },
   {
     "node_id": "MDc6UmVsZWFzZTEyNTI3MTU0",
@@ -3626,7 +3646,7 @@
     "npm_dist_tags": [
       "1-7-x"
     ],
-    "total_downloads": 17976
+    "total_downloads": 18042
   },
   {
     "node_id": "MDc6UmVsZWFzZTExMDMyMjc5",
@@ -3706,7 +3726,7 @@
       "chrome": "58.0.3029.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 45385
+    "total_downloads": 45390
   },
   {
     "node_id": "MDc6UmVsZWFzZTkzMzg0MTI=",
@@ -3726,7 +3746,7 @@
       "chrome": "58.0.3029.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 52525
+    "total_downloads": 52544
   },
   {
     "node_id": "MDc6UmVsZWFzZTg5NTEwNzA=",
@@ -3746,7 +3766,7 @@
       "chrome": "58.0.3029.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 243805
+    "total_downloads": 243807
   },
   {
     "node_id": "MDc6UmVsZWFzZTgwNjgzMDY=",
@@ -3766,7 +3786,7 @@
       "chrome": "58.0.3029.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 202870
+    "total_downloads": 202886
   },
   {
     "node_id": "MDc6UmVsZWFzZTc4NjY4NTE=",
@@ -3786,7 +3806,7 @@
       "chrome": "58.0.3029.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 55208
+    "total_downloads": 55211
   },
   {
     "node_id": "MDc6UmVsZWFzZTc1Nzc5Njk=",
@@ -3826,7 +3846,7 @@
       "chrome": "58.0.3029.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 50828
+    "total_downloads": 50836
   },
   {
     "node_id": "MDc6UmVsZWFzZTcwNjkxOTg=",
@@ -3846,7 +3866,7 @@
       "chrome": "58.0.3029.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 68745
+    "total_downloads": 68755
   },
   {
     "node_id": "MDc6UmVsZWFzZTY4NzEwNTA=",
@@ -3866,7 +3886,7 @@
       "chrome": "58.0.3029.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 15712
+    "total_downloads": 15725
   },
   {
     "node_id": "MDc6UmVsZWFzZTY2NTQ1ODM=",
@@ -3906,7 +3926,7 @@
       "chrome": "58.0.3029.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 12036
+    "total_downloads": 12037
   },
   {
     "node_id": "MDc6UmVsZWFzZTY0MDcwMjU=",
@@ -3926,7 +3946,7 @@
       "chrome": "58.0.3029.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 14726
+    "total_downloads": 14738
   },
   {
     "node_id": "MDc6UmVsZWFzZTYzNDI3ODA=",
@@ -3946,7 +3966,7 @@
       "chrome": "58.0.3029.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 115687
+    "total_downloads": 115706
   },
   {
     "node_id": "MDc6UmVsZWFzZTExMDEwNTc5",
@@ -3966,7 +3986,7 @@
       "chrome": "56.0.2924.87"
     },
     "npm_dist_tags": [],
-    "total_downloads": 5130
+    "total_downloads": 5139
   },
   {
     "node_id": "MDc6UmVsZWFzZTk0NzQ2OTg=",
@@ -4026,7 +4046,7 @@
       "chrome": "56.0.2924.87"
     },
     "npm_dist_tags": [],
-    "total_downloads": 12422
+    "total_downloads": 12425
   },
   {
     "node_id": "MDc6UmVsZWFzZTc4NjcyODU=",
@@ -4106,7 +4126,7 @@
       "chrome": "56.0.2924.87"
     },
     "npm_dist_tags": [],
-    "total_downloads": 115597
+    "total_downloads": 115601
   },
   {
     "node_id": "MDc6UmVsZWFzZTYzOTU4MDM=",
@@ -4126,7 +4146,7 @@
       "chrome": "56.0.2924.87"
     },
     "npm_dist_tags": [],
-    "total_downloads": 35787
+    "total_downloads": 35791
   },
   {
     "node_id": "MDc6UmVsZWFzZTYzNDEyMTA=",
@@ -4206,7 +4226,7 @@
       "chrome": "56.0.2924.87"
     },
     "npm_dist_tags": [],
-    "total_downloads": 69145
+    "total_downloads": 69151
   },
   {
     "node_id": "MDc6UmVsZWFzZTU5NDA2NDE=",
@@ -4226,7 +4246,7 @@
       "chrome": "56.0.2924.87"
     },
     "npm_dist_tags": [],
-    "total_downloads": 18374
+    "total_downloads": 18377
   },
   {
     "node_id": "MDc6UmVsZWFzZTU4MzM3MjI=",
@@ -4246,7 +4266,7 @@
       "chrome": "56.0.2924.87"
     },
     "npm_dist_tags": [],
-    "total_downloads": 8438
+    "total_downloads": 8439
   },
   {
     "node_id": "MDc6UmVsZWFzZTU2Njc0Mjc=",
@@ -4286,7 +4306,7 @@
       "chrome": "56.0.2924.87"
     },
     "npm_dist_tags": [],
-    "total_downloads": 73174
+    "total_downloads": 73185
   },
   {
     "node_id": "MDc6UmVsZWFzZTU1MjM4NTQ=",
@@ -4326,7 +4346,7 @@
       "chrome": "56.0.2924.87"
     },
     "npm_dist_tags": [],
-    "total_downloads": 68229
+    "total_downloads": 68235
   },
   {
     "node_id": "MDc6UmVsZWFzZTUzNzI4MTM=",
@@ -4386,7 +4406,7 @@
       "chrome": "53.0.2785.143"
     },
     "npm_dist_tags": [],
-    "total_downloads": 44632
+    "total_downloads": 44673
   },
   {
     "node_id": "MDc6UmVsZWFzZTUyMDg0MTQ=",
@@ -4406,7 +4426,7 @@
       "chrome": "53.0.2785.143"
     },
     "npm_dist_tags": [],
-    "total_downloads": 83202
+    "total_downloads": 83231
   },
   {
     "node_id": "MDc6UmVsZWFzZTUxMjAwMDk=",
@@ -4426,7 +4446,7 @@
       "chrome": "53.0.2785.143"
     },
     "npm_dist_tags": [],
-    "total_downloads": 76673
+    "total_downloads": 76674
   },
   {
     "node_id": "MDc6UmVsZWFzZTQ5NzExMjY=",
@@ -4446,7 +4466,7 @@
       "chrome": "53.0.2785.143"
     },
     "npm_dist_tags": [],
-    "total_downloads": 119115
+    "total_downloads": 119181
   },
   {
     "node_id": "MDc6UmVsZWFzZTQ4ODM3MTU=",
@@ -4466,7 +4486,7 @@
       "chrome": "54.0.2840.51"
     },
     "npm_dist_tags": [],
-    "total_downloads": 22445
+    "total_downloads": 22446
   },
   {
     "node_id": "MDc6UmVsZWFzZTQ4NTA0NzA=",
@@ -4566,7 +4586,7 @@
       "chrome": "53.0.2785.143"
     },
     "npm_dist_tags": [],
-    "total_downloads": 31112
+    "total_downloads": 31113
   },
   {
     "node_id": "MDc6UmVsZWFzZTQ1MzgyNTg=",
@@ -4726,7 +4746,7 @@
       "chrome": "52.0.2743.82"
     },
     "npm_dist_tags": [],
-    "total_downloads": 3418
+    "total_downloads": 3422
   },
   {
     "node_id": "MDc6UmVsZWFzZTQ4NDk1ODQ=",
@@ -4746,7 +4766,7 @@
       "chrome": "52.0.2743.82"
     },
     "npm_dist_tags": [],
-    "total_downloads": 4742
+    "total_downloads": 4744
   },
   {
     "node_id": "MDc6UmVsZWFzZTQ3NzYxMDI=",
@@ -4797,7 +4817,7 @@
       "chrome": "52.0.2743.82"
     },
     "npm_dist_tags": [],
-    "total_downloads": 6732
+    "total_downloads": 6736
   },
   {
     "node_id": "MDc6UmVsZWFzZTQ0MzY0NzI=",
@@ -4968,7 +4988,7 @@
       "chrome": "52.0.2743.82"
     },
     "npm_dist_tags": [],
-    "total_downloads": 32734
+    "total_downloads": 32735
   },
   {
     "node_id": "MDc6UmVsZWFzZTM3MDYzNjk=",
@@ -4988,7 +5008,7 @@
       "chrome": "51.0.2704.106"
     },
     "npm_dist_tags": [],
-    "total_downloads": 15572
+    "total_downloads": 15574
   },
   {
     "node_id": "MDc6UmVsZWFzZTM2NDQyMzU=",
@@ -5008,7 +5028,7 @@
       "chrome": "51.0.2704.106"
     },
     "npm_dist_tags": [],
-    "total_downloads": 15254
+    "total_downloads": 15255
   },
   {
     "node_id": "MDc6UmVsZWFzZTM1OTQ2NjU=",
@@ -5128,7 +5148,7 @@
       "chrome": "51.0.2704.63"
     },
     "npm_dist_tags": [],
-    "total_downloads": 12548
+    "total_downloads": 12549
   },
   {
     "node_id": "MDc6UmVsZWFzZTMzMTA1MTk=",
@@ -5248,7 +5268,7 @@
       "chrome": "49.0.2623.75"
     },
     "npm_dist_tags": [],
-    "total_downloads": 10136
+    "total_downloads": 10137
   },
   {
     "node_id": "MDc6UmVsZWFzZTMyMDE0NjE=",
@@ -5288,7 +5308,7 @@
       "chrome": "49.0.2623.75"
     },
     "npm_dist_tags": [],
-    "total_downloads": 49748
+    "total_downloads": 49749
   },
   {
     "node_id": "MDc6UmVsZWFzZTMxMjY0ODM=",
@@ -5308,7 +5328,7 @@
       "chrome": "49.0.2623.75"
     },
     "npm_dist_tags": [],
-    "total_downloads": 44373
+    "total_downloads": 44382
   },
   {
     "node_id": "MDc6UmVsZWFzZTMwNzU2Nzk=",
@@ -5368,7 +5388,7 @@
       "chrome": "49.0.2623.75"
     },
     "npm_dist_tags": [],
-    "total_downloads": 13540
+    "total_downloads": 13542
   },
   {
     "node_id": "MDc6UmVsZWFzZTI5NDE0OTI=",
@@ -5408,7 +5428,7 @@
       "chrome": "49.0.2623.75"
     },
     "npm_dist_tags": [],
-    "total_downloads": 37933
+    "total_downloads": 37964
   },
   {
     "node_id": "MDc6UmVsZWFzZTI4MDQyNjk=",
@@ -5419,7 +5439,7 @@
     "version": "0.37.2",
     "npm_package_name": "electron-prebuilt",
     "npm_dist_tags": [],
-    "total_downloads": 16387
+    "total_downloads": 16389
   },
   {
     "node_id": "MDc6UmVsZWFzZTI4MDAzNDM=",
@@ -5459,7 +5479,7 @@
       "chrome": "49.0.2623.75"
     },
     "npm_dist_tags": [],
-    "total_downloads": 25132
+    "total_downloads": 25146
   },
   {
     "node_id": "MDc6UmVsZWFzZTI4OTQwNjc=",
@@ -5479,7 +5499,7 @@
       "chrome": "47.0.2526.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 39617
+    "total_downloads": 39622
   },
   {
     "node_id": "MDc6UmVsZWFzZTI3OTE5MTE=",
@@ -5579,7 +5599,7 @@
       "chrome": "47.0.2526.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 24341
+    "total_downloads": 24342
   },
   {
     "node_id": "MDc6UmVsZWFzZTI1MTM4OTA=",
@@ -5599,7 +5619,7 @@
       "chrome": "47.0.2526.110"
     },
     "npm_dist_tags": [],
-    "total_downloads": 4054
+    "total_downloads": 4056
   },
   {
     "node_id": "MDc6UmVsZWFzZTI0NzE0NDc=",
@@ -5721,7 +5741,7 @@
     "version": "0.35.6",
     "npm_package_name": "electron-prebuilt",
     "npm_dist_tags": [],
-    "total_downloads": 22040
+    "total_downloads": 22045
   },
   {
     "node_id": "MDc6UmVsZWFzZTIzNTc0NTQ=",
@@ -5761,7 +5781,7 @@
       "chrome": "45.0.2454.85"
     },
     "npm_dist_tags": [],
-    "total_downloads": 12906
+    "total_downloads": 12909
   },
   {
     "node_id": "MDc6UmVsZWFzZTIyMzI0MDg=",
@@ -6258,7 +6278,7 @@
     "version": "0.30.8",
     "npm_package_name": "electron-prebuilt",
     "npm_dist_tags": [],
-    "total_downloads": 11786
+    "total_downloads": 11790
   },
   {
     "node_id": "MDc6UmVsZWFzZTE4NTk4NTA=",
@@ -6333,7 +6353,7 @@
     "version": "0.30.2",
     "npm_package_name": "electron-prebuilt",
     "npm_dist_tags": [],
-    "total_downloads": 6401
+    "total_downloads": 6402
   },
   {
     "node_id": "MDc6UmVsZWFzZTE1ODExMTA=",
@@ -6375,7 +6395,7 @@
       "chrome": "43.0.2357.65"
     },
     "npm_dist_tags": [],
-    "total_downloads": 14801
+    "total_downloads": 14818
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0OTMxMDY=",
@@ -6426,7 +6446,7 @@
       "chrome": "43.0.2357.65"
     },
     "npm_dist_tags": [],
-    "total_downloads": 7511
+    "total_downloads": 7512
   },
   {
     "node_id": "MDc6UmVsZWFzZTE0MzA5ODM=",
@@ -6586,7 +6606,7 @@
       "chrome": "42.0.2311.107"
     },
     "npm_dist_tags": [],
-    "total_downloads": 5545
+    "total_downloads": 5546
   },
   {
     "node_id": "MDc6UmVsZWFzZTEyODYyMDU=",
@@ -7065,7 +7085,7 @@
     "published_at": "2014-11-28T15:27:25Z",
     "version": "0.19.5",
     "npm_dist_tags": [],
-    "total_downloads": 3161
+    "total_downloads": 3162
   },
   {
     "node_id": "MDc6UmVsZWFzZTcyMjc1OA==",
