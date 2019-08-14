@@ -17,6 +17,7 @@ jobs:
     - name: npm install and release
       run: |
         npm ci
+        npm whoami
         npm run release
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}

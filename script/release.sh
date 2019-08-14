@@ -13,10 +13,10 @@ npm run build
 npm test
 
 # bail if nothing changed
-if [ "$(git status --porcelain)" = "" ]; then
-  echo "no new content found; goodbye!"
-  exit
-fi
+# if [ "$(git status --porcelain)" = "" ]; then
+#   echo "no new content found; goodbye!"
+#   exit
+# fi
 
 git config user.email electron@github.com
 git config user.name electron-bot
