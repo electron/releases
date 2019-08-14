@@ -1,0 +1,25 @@
+name: Test
+
+on:
+  schedule:
+    - cron: 0 */6 * * *
+  
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        version: 10.x
+    - name: npm install, build, and test
+      run: |
+        npm ci
+        npm run release
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
