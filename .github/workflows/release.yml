@@ -1,10 +1,12 @@
 name: Update And Release
 
-on: [push]
+on:
+  schedule:
+    - cron: 0 */6 * * *
   
 
 jobs:
-  test:
+  release:
 
     runs-on: ubuntu-latest
 
