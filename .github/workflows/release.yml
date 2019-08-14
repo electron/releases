@@ -1,8 +1,6 @@
 name: Update And Release
 
-on:
-  schedule:
-    - cron: 0 */6 * * *
+on: [push]
   
 
 jobs:
