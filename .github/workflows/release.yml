@@ -15,10 +15,10 @@ jobs:
       with:
         version: 10.x
     - name: npm install and release
-      run: |
-        npm ci
-        npm whoami
-        npm run release
+      uses: actions/npm@master
+      with:
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        args: run release
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
