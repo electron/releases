@@ -17,9 +17,7 @@ jobs:
       with:
         version: 10.x
     - name: npm install and release
-      uses: actions/npm@master
-      with:
-        args: run release
+      run: npm run release
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
