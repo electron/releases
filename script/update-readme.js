@@ -9,7 +9,7 @@ const readmeContent = fs.readFileSync(readmePath, 'utf8')
 const startComment = '<!-- START RELEASES TABLE -->'
 const endComment = '<!-- END RELEASES TABLE -->'
 const pattern = new RegExp(`${startComment}[\\s\\S]*${endComment}`, 'gm')
-const data = versions.map(version => {
+const data = versions.map((version) => {
   return {
     Tag: `[${version.tag_name}](https://github.com/electron/electron/releases/tag/${version.tag_name})`,
     Published: version.published_at.substring(0, 10),
@@ -17,7 +17,7 @@ const data = versions.map(version => {
     Prerelease: version.prerelease ? 'yes' : 'no',
     Node: version.deps ? version.deps.node : '',
     Chrome: version.deps ? version.deps.chrome.split('.')[0] : '',
-    Downloads: version.total_downloads
+    Downloads: version.total_downloads,
   }
 })
 const html = tableify(data, Object.keys(data[0]))

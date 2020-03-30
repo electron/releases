@@ -20,41 +20,51 @@ const firstNpmVersion = '1.3.1'
 
 github.authenticate({
   type: 'token',
-  token: process.env.GH_TOKEN
+  token: process.env.GH_TOKEN,
 })
 
 main()
 
-async function main () {
+async function main() {
   console.log('fetching list of `electron` releases on npm')
-  const npmElectronData = await got('https://registry.npmjs.com/electron', { json: true })
+  const npmElectronData = await got('https://registry.npmjs.com/electron', {
+    json: true,
+  })
   const npmVersions = Object.keys(npmElectronData.body.versions)
     // filter out old versions of `electron` that were actually a different module
-    .filter(version => semver.gte(version, firstNpmVersion))
+    .filter((version) => semver.gte(version, firstNpmVersion))
 
   console.log('fetching list of `electron-prebuilt` releases on npm')
-  const npmElectronPrebuiltData = await got('https://registry.npmjs.com/electron-prebuilt', { json: true })
+  const npmElectronPrebuiltData = await got(
+    'https://registry.npmjs.com/electron-prebuilt',
+    { json: true }
+  )
 
   const npmVersionsPrebuilt = Object.keys(npmElectronPrebuiltData.body.versions)
     // filter out `electron-prebuilt` versions that were published in tandem with `electron` for a while.
-    .filter(version => semver.lt(version, firstNpmVersion))
+    .filter((version) => semver.lt(version, firstNpmVersion))
 
   console.log('fetching list of `electron-nightly` releases on npm')
-  const npmElectronNightlyData = await got('https://registry.npmjs.com/electron-nightly', { json: true })
+  const npmElectronNightlyData = await got(
+    'https://registry.npmjs.com/electron-nightly',
+    { json: true }
+  )
   const npmVersionsNightly = Object.keys(npmElectronNightlyData.body.versions)
 
   console.log('fetching npm dist-tags')
   const distTags = npmElectronData.body['dist-tags']
-  const npmDistTaggedVersions = Object.entries(distTags)
-    .reduce((acc, tagAndVersion) => {
-      const [ tag, version ] = tagAndVersion
+  const npmDistTaggedVersions = Object.entries(distTags).reduce(
+    (acc, tagAndVersion) => {
+      const [tag, version] = tagAndVersion
       if (!tag.includes('nightly')) {
         let o = acc[version]
         if (!o) acc[version] = o = []
         o.push(tag)
       }
       return acc
-    }, {})
+    },
+    {}
+  )
   const latestNightly = npmElectronNightlyData.body['dist-tags'].latest
   npmDistTaggedVersions[latestNightly] = ['nightly']
   console.log('fetched npmDistTaggedVersions:\n', npmDistTaggedVersions)
@@ -66,35 +76,41 @@ async function main () {
   console.log(`found ${releases.length} releases on GitHub`)
 
   console.log('fetching version data for deps like V8, Chromium, and Node.js')
-  const depDataRes = await got('https://atom.io/download/electron/index.json', { json: true })
+  const depDataRes = await got('https://atom.io/download/electron/index.json', {
+    json: true,
+  })
   const depData = depDataRes.body
 
   releases = releases
-    .filter(release => !release.draft)
-    .filter(release => semver.valid(release.tag_name.substring(1)))
-    .map(release => {
+    .filter((release) => !release.draft)
+    .filter((release) => semver.valid(release.tag_name.substring(1)))
+    .map((release) => {
       // derive version from tag_name for semver comparisons
       release.version = release.tag_name.substring(1)
 
       // published to npm? electron? electron-prebuilt?
-      if (npmVersions.includes(release.version)) release.npm_package_name = 'electron'
-      if (npmVersionsPrebuilt.includes(release.version)) release.npm_package_name = 'electron-prebuilt'
-      if (npmVersionsNightly.includes(release.version)) release.npm_package_name = 'electron-nightly'
+      if (npmVersions.includes(release.version))
+        release.npm_package_name = 'electron'
+      if (npmVersionsPrebuilt.includes(release.version))
+        release.npm_package_name = 'electron-prebuilt'
+      if (npmVersionsNightly.includes(release.version))
+        release.npm_package_name = 'electron-nightly'
 
       // weave in version data for V8, Chromium, Node.js, etc
-      const deps = depData.find(version => version.version === release.version)
+      const deps = depData.find(
+        (version) => version.version === release.version
+      )
       if (deps) release.deps = deps
 
       // apply dist tags from npm (usually `latest`, `beta` or `nightly`)
       release.npm_dist_tags = npmDistTaggedVersions[release.version] || []
 
       if (release.assets) {
-        release.total_downloads = release.assets
-          .reduce((acc, asset) => {
-            const platform = getPlatformFromFilename(asset.name)
-            if (platform) acc += asset.download_count
-            return acc
-          }, 0)
+        release.total_downloads = release.assets.reduce((acc, asset) => {
+          const platform = getPlatformFromFilename(asset.name)
+          if (platform) acc += asset.download_count
+          return acc
+        }, 0)
       }
 
       return release
@@ -112,7 +128,7 @@ async function main () {
   // Convert the 2.x npm_dist_tag (string) format to the
   // 3.x npm_dist_tags (array) format.
   // This can be removed once a 3.x release is published.
-  old.forEach(release => {
+  old.forEach((release) => {
     if (release.npm_dist_tag) {
       release.npm_dist_tags = [release.npm_dist_tag]
       delete release.npm_dist_tag
@@ -120,16 +136,26 @@ async function main () {
   })
 
   let tagsChanged
-  for (const tag of [ 'latest', 'beta', 'nightly' ]) {
+  for (const tag of ['latest', 'beta', 'nightly']) {
     const oldVersion = findVersionForTag(old, tag, 'index.json')
-    const newVersion = findVersionForTag(releases, tag, 'electron/electron and electron/nightlies repos')
+    const newVersion = findVersionForTag(
+      releases,
+      tag,
+      'electron/electron and electron/nightlies repos'
+    )
     if (oldVersion !== newVersion) tagsChanged = true
   }
 
-  const oldNpmCount = old.filter(release => release.npm_package_name === 'electron').length
-  const newNpmCount = releases.filter(release => release.npm_package_name === 'electron').length
+  const oldNpmCount = old.filter(
+    (release) => release.npm_package_name === 'electron'
+  ).length
+  const newNpmCount = releases.filter(
+    (release) => release.npm_package_name === 'electron'
+  ).length
   const releaseBodyChanged = old.some((oldRelease) => {
-    const newRelease = releases.find(release => release.version === oldRelease.version)
+    const newRelease = releases.find(
+      (release) => release.version === oldRelease.version
+    )
     return !newRelease || newRelease.body !== oldRelease.body
   })
 
@@ -158,11 +184,11 @@ const findVersionForTag = (releases, tag, source) => {
   throw new Error(`No release with tag '${tag}' found in ${source}!`)
 }
 
-async function processRelease (release) {
+async function processRelease(release) {
   release.version = release.tag_name.substring(1)
   release.body = release.body
 
-  // turn PR references like #123 into hyperlinks
+    // turn PR references like #123 into hyperlinks
     .replace(
       / #(\d+)/gm,
       ' <a href="https://github.com/electron/electron/pull/$1">#$1</a>'
@@ -180,32 +206,34 @@ async function processRelease (release) {
 }
 
 class Options {
-  constructor (opts) {
+  constructor(opts) {
     const defaults = {
       owner: 'electron',
       repo: 'electron',
-      per_page: 100
+      per_page: 100,
     }
     this._opts = Object.assign({}, defaults, opts)
   }
 
-  withRepo (repo) {
+  withRepo(repo) {
     this._opts.repo = repo
     return this
   }
 
-  get () {
+  get() {
     console.log(this._opts)
     return this._opts
   }
 }
 
-function ghOpts (opts) {
+function ghOpts(opts) {
   return new Options(opts)
 }
 
-async function fetchAllRepoReleases (repo) {
-  const countRes = await github.repos.getReleases(ghOpts({ per_page: 1 }).withRepo(repo).get())
+async function fetchAllRepoReleases(repo) {
+  const countRes = await github.repos.getReleases(
+    ghOpts({ per_page: 1 }).withRepo(repo).get()
+  )
 
   let pagesToFetch
   try {
@@ -221,7 +249,9 @@ async function fetchAllRepoReleases (repo) {
   console.log('fetching release data from GitHub for repo', repo)
   let releases = []
   for (let i = 1; i <= pagesToFetch; i++) {
-    const batch = await github.repos.getReleases(ghOpts({ page: i }).withRepo(repo).get())
+    const batch = await github.repos.getReleases(
+      ghOpts({ page: i }).withRepo(repo).get()
+    )
     releases = releases.concat(batch.data)
   }
 
