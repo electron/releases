@@ -20,15 +20,15 @@
     "parse-link-header": "^1.0.1",
     "platform-utils": "^1.0.0",
     "semver": "^5.4.1",
-    "standard": "^12.0.1",
-    "standard-markdown": "^5.0.0"
+    "prettier": "^2.0.2"
   },
   "scripts": {
     "build": "npm run collect && npm run lite && npm run update-readme",
     "collect": "node script/collect.js",
     "lite": "node script/lite.js > lite.json",
     "update-readme": "node script/update-readme.js",
-    "test": "mocha && standard --fix && standard-markdown",
+    "prettier": "prettier --check \"./**/*.{ts,js}\"",
+    "test": "mocha && prettier --check \"./**/*.{ts,js}\" --write",
     "prepack": "check-for-leaks",
     "prepush": "check-for-leaks",
     "release": "./script/release.sh"
