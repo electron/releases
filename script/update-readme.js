@@ -16,7 +16,7 @@ const data = versions.map((version) => {
     npm: version.npm_dist_tags ? version.npm_dist_tags.join(', ') : '',
     Prerelease: version.prerelease ? 'yes' : 'no',
     Node: version.deps ? version.deps.node : '',
-    Chrome: version.deps ? version.deps.chrome.split('.')[0] : '',
+    Chrome: version.deps ? version.deps.chrome : '',
     Downloads: version.total_downloads,
   }
 })
