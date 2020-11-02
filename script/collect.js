@@ -2,14 +2,14 @@
 
 require('make-promises-safe')
 if (!process.env.GH_TOKEN) {
-  require('dotenv-safe').load()
+  require('dotenv-safe').config()
 }
 
 const fs = require('fs')
 const path = require('path')
 const semver = require('semver')
 const hubdown = require('hubdown')
-const github = require('@octokit/rest')()
+const { Octokit } = require('@octokit/rest')
 const got = require('got')
 const parseLinkHeader = require('parse-link-header')
 const { getPlatformFromFilename } = require('platform-utils')
@@ -18,41 +18,39 @@ const { getPlatformFromFilename } = require('platform-utils')
 // published as `electron-prebuilt`
 const firstNpmVersion = '1.3.1'
 
-github.authenticate({
-  type: 'token',
-  token: process.env.GH_TOKEN,
+const github = new Octokit({
+  auth: process.env.GH_TOKEN,
 })
 
 main()
 
 async function main() {
   console.log('fetching list of `electron` releases on npm')
-  const npmElectronData = await got('https://registry.npmjs.com/electron', {
-    json: true,
-  })
-  const npmVersions = Object.keys(npmElectronData.body.versions)
+  const rawElectronData = await got('https://registry.npmjs.com/electron')
+  const electronData = JSON.parse(rawElectronData.body)
+  const validElectronVersions = Object.keys(electronData.versions)
     // filter out old versions of `electron` that were actually a different module
     .filter((version) => semver.gte(version, firstNpmVersion))
 
   console.log('fetching list of `electron-prebuilt` releases on npm')
-  const npmElectronPrebuiltData = await got(
-    'https://registry.npmjs.com/electron-prebuilt',
-    { json: true }
+  const rawPrebuiltData = await got(
+    'https://registry.npmjs.com/electron-prebuilt'
   )
+  const prebuiltData = JSON.parse(rawPrebuiltData.body)
 
-  const npmVersionsPrebuilt = Object.keys(npmElectronPrebuiltData.body.versions)
+  const validPrebuiltVersions = Object.keys(prebuiltData.versions)
     // filter out `electron-prebuilt` versions that were published in tandem with `electron` for a while.
     .filter((version) => semver.lt(version, firstNpmVersion))
 
   console.log('fetching list of `electron-nightly` releases on npm')
-  const npmElectronNightlyData = await got(
-    'https://registry.npmjs.com/electron-nightly',
-    { json: true }
+  const rawNightlyData = await got(
+    'https://registry.npmjs.com/electron-nightly'
   )
-  const npmVersionsNightly = Object.keys(npmElectronNightlyData.body.versions)
+  const nightlyData = JSON.parse(rawNightlyData.body)
+  const validNightlyVersions = Object.keys(nightlyData.versions)
 
   console.log('fetching npm dist-tags')
-  const distTags = npmElectronData.body['dist-tags']
+  const distTags = electronData['dist-tags']
   const npmDistTaggedVersions = Object.entries(distTags).reduce(
     (acc, tagAndVersion) => {
       const [tag, version] = tagAndVersion
@@ -65,7 +63,7 @@ async function main() {
     },
     {}
   )
-  const latestNightly = npmElectronNightlyData.body['dist-tags'].latest
+  const latestNightly = nightlyData['dist-tags'].latest
   npmDistTaggedVersions[latestNightly] = ['nightly']
   console.log('fetched npmDistTaggedVersions:\n', npmDistTaggedVersions)
 
@@ -76,10 +74,9 @@ async function main() {
   console.log(`found ${releases.length} releases on GitHub`)
 
   console.log('fetching version data for deps like V8, Chromium, and Node.js')
-  const depDataRes = await got('https://atom.io/download/electron/index.json', {
-    json: true,
-  })
-  const depData = depDataRes.body
+  const depDataRes = await got('https://electronjs.org/headers/index.json')
+
+  const depData = JSON.parse(depDataRes.body)
 
   releases = releases
     .filter((release) => !release.draft)
@@ -89,11 +86,11 @@ async function main() {
       release.version = release.tag_name.substring(1)
 
       // published to npm? electron? electron-prebuilt?
-      if (npmVersions.includes(release.version))
+      if (validElectronVersions.includes(release.version))
         release.npm_package_name = 'electron'
-      if (npmVersionsPrebuilt.includes(release.version))
+      if (validPrebuiltVersions.includes(release.version))
         release.npm_package_name = 'electron-prebuilt'
-      if (npmVersionsNightly.includes(release.version))
+      if (validNightlyVersions.includes(release.version))
         release.npm_package_name = 'electron-nightly'
 
       // weave in version data for V8, Chromium, Node.js, etc
@@ -231,13 +228,13 @@ function ghOpts(opts) {
 }
 
 async function fetchAllRepoReleases(repo) {
-  const countRes = await github.repos.getReleases(
+  const countRes = await github.repos.listReleases(
     ghOpts({ per_page: 1 }).withRepo(repo).get()
   )
 
   let pagesToFetch
   try {
-    const count = Number(parseLinkHeader(countRes.meta.link).last.page)
+    const count = Number(parseLinkHeader(countRes.headers.link).last.page)
     console.log(`found ${count} releases on GitHub for repo:`, repo)
     pagesToFetch = Math.ceil(count / 100)
   } catch (err) {
@@ -249,7 +246,7 @@ async function fetchAllRepoReleases(repo) {
   console.log('fetching release data from GitHub for repo', repo)
   let releases = []
   for (let i = 1; i <= pagesToFetch; i++) {
-    const batch = await github.repos.getReleases(
+    const batch = await github.repos.listReleases(
       ghOpts({ page: i }).withRepo(repo).get()
     )
     releases = releases.concat(batch.data)
