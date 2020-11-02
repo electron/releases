@@ -13,7 +13,9 @@ describe('electron-releases', () => {
     releases.length.should.be.above(270)
   })
 
-  it('uses snake_case for all properties', () => {
+  it('uses snake_case for all properties', function () {
+    this.timeout(5000)
+
     const keys = Object.keys(flat(releases))
     keys.length.should.be.above(0)
     keys.every((key) => key.toLowerCase() === key).should.eq(true)
