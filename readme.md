@@ -1,6 +1,6 @@
 # electron-releases
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/electron/releases.svg)](https://greenkeeper.io/)
+![Test](https://github.com/electron/releases/workflows/Test/badge.svg)
 
 > Complete and up-to-date info about every release of Electron.
 
@@ -24,6 +24,110 @@ This module collects metadata from various sources:
 - [dist-tags from npm registry for `electron`](https://registry.npmjs.com/electron)
 - [dist-tags from npm registry `electron-prebuilt`](https://registry.npmjs.com/electron-prebuilt)
 - [Dependency data for Chromium, Node.js, V8, etc](https://atom.io/download/electron/index.json)
+
+## Installation
+
+```sh
+npm i electron-releases
+```
+
+## Usage
+
+The module exports an array of release objects:
+
+```js
+const releases = require('electron-releases')
+
+// find newest version:
+releases[0].tag_name // => 'v1.8.2-beta.3'
+
+// find `latest` on npm, which is not necessarily the most recent release:
+releases.find(release => release.npm_dist_tag === 'latest')
+
+// find `beta` on npm:
+releases.find(release => release.npm_dist_tag === 'beta')
+```
+
+### Lite Version
+
+The default export is about 75MB, as it includes a lot of metadata from the
+GitHub API like release assets.
+
+If you just need the basic info like version numbers, npm dist tags, and publish dates, there's a much smaller (<500K) dataset you can use:
+
+```js
+require('electron-releases/lite.json')
+```
+
+You can also get this at [unpkg.com/electron-releases/lite.json](https://unpkg.com/electron-releases/lite.json)
+
+### Data
+
+Each release contains all the data returned by the
+[GitHub Releases API](https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#releases),
+plus some extra properties:
+
+- `version` (String) - the same thing as `dist_tag`, but without the `v` for convenient [semver comparisons](https://github.com/npm/node-semver#usage).
+- `npm_dist_tags` (Array<String>) - an array of [npm dist-tags](https://docs.npmjs.com/cli/dist-tag) like `"latest"` or `"beta"`. Most releases will have an empty array for this property.
+- `npm_package_name` (String) - For packages published to npm, this will be `electron` or `electron-prebuilt`. For packages not published to npm, this property will not exist.
+- `total_downloads` (Number) - Total downloads of all assets in the release that
+  have a [detectable platform](https://github.com/zeke/platform-utils#api) in their
+  filename like `.zip`, `.dmg`, `.exe`, `.rpm`, `.deb`, etc.
+- `deps` (Object) - version numbers for Electron dependencies.
+  - `v8` (String)
+  - `chromium` (String)
+  - `node` (String)
+  - etc..
+
+## Updates
+
+This module is self-publishing. It runs in a GitHub Action cron job every
+six hours. A new version of this module is published if any of
+the following change:
+
+- number of Electron releases on GitHub
+- number of Electron releases on npm
+- npm `electron@beta` version
+- npm `electron@latest` version
+
+If none of these has changed, the build process aborts and runs again ten minutes
+later. For more detail, see [script/release.sh](script/release.sh)
+
+The Heroku app is also synced to the GitHub repo, so every push to the
+`master` branch will automatically deploy a new version of this app.
+
+### Manually update
+
+If you need to modify any file in the `script` folder, you'll also want
+to manually regenerate this module's output files. You can do so with
+the following steps:
+
+1. Create a [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#creating-a-token). Note that if Electron maintainers must enable SSO
+for the `electron` org for this token to work.
+1. Copy the `.env.example` file into a separate `.env` file.
+    ```sh
+    cp .env.example .env
+    ```
+1. Paste your token into the `GH_TOKEN` field of the `.env` file.
+1. Build the module.
+    ```sh
+    npm run build
+    ```
+1. Check if all tests passed:
+    ```sh
+    npm test
+    ```
+
+## Tests
+
+```sh
+npm install
+npm test
+```
+
+## License
+
+MIT
 
 ## Releases
 
@@ -933,127 +1037,3 @@ This module collects metadata from various sources:
 |[v0.3.1](https://github.com/electron/electron/releases/tag/v0.3.1)|2013-08-12||no||||0|
 
 <!-- END RELEASES TABLE -->
-
-## Installation
-
-```sh
-npm i electron-releases
-```
-
-## Usage
-
-The module exports an array of release objects:
-
-```js
-const releases = require('electron-releases')
-
-// find newest version:
-releases[0].tag_name // => 'v1.8.2-beta.3'
-
-// find `latest` on npm, which is not necessarily the most recent release:
-releases.find(release => release.npm_dist_tag === 'latest')
-
-// find `beta` on npm:
-releases.find(release => release.npm_dist_tag === 'beta')
-```
-
-## Lite Version
-
-The default export is about 10MB, as it includes a lot of metadata from the
-GitHub API like release assets.
-
-If you just need the basic info like version numbers, npm dist tags, and publish dates, there's a much smaller (<200K) dataset you can use:
-
-```js
-require('electron-releases/lite.json')
-```
-
-You can also get this at [unpkg.com/electron-releases/lite.json](https://unpkg.com/electron-releases/lite.json)
-
-### Data
-
-Each release contains all the data returned by the
-[GitHub Releases API](https://developer.github.com/v3/repos/releases/#get-a-single-release),
-plus some extra properties:
-
-- `version` (String) - the same thing as `dist_tag`, but without the `v` for convenient [semver comparisons](https://github.com/npm/node-semver#usage).
-- `npm_dist_tags` (Array<String>) - an array of [npm dist-tags](https://docs.npmjs.com/cli/dist-tag) like `"latest"` or `"beta"`. Most releases will have an empty array for this property.
-- `npm_package_name` (String) - For packages published to npm, this will be `electron` or `electron-prebuilt`. For packages not published to npm, this property will not exist.
-- `total_downloads` (Number) - Total downloads of all assets in the release that
-  have a [detectable platform](https://github.com/zeke/platform-utils#api) in their
-  filename like `.zip`, `.dmg`, `.exe`, `.rpm`, `.deb`, etc.
-- `deps` (Object) - version numbers for Electron dependencies.
-  - `v8` (String)
-  - `chromium` (String)
-  - `node` (String)
-  - etc..
-
-## Updates
-
-This module is self-publishing. It runs in a
-[Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler)
-process every ten minutes. A new version of this module is published if any of
-the following change:
-
-- number of Electron releases on GitHub
-- number of Electron releases on npm
-- npm `electron@beta` version
-- npm `electron@latest` version
-
-If none of these has changed, the build process aborts and runs again ten minutes
-later. For more detail, see [script/release.sh](script/release.sh)
-
-The Heroku app is also synced to the GitHub repo, so every push to the
-`master` branch will automatically deploy a new version of this app.
-
-### Manually update
-
-If your change any file in the `script` folder you need to
-bump module the following steps:
-
-1. Create a [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#creating-a-token)
-1. Copy-paste `.env.example` by following command:
-    ```sh
-    cp .env.example .env
-    ```
-1. Paste your token to `.env` file
-1. Build the module
-    ```sh
-    npm run build
-    ```
-1. Check if all tests passed:
-    ```sh
-    npm test
-    ```
-
-## Tests
-
-```sh
-npm install
-npm test
-```
-
-## Dependencies
-
-None
-
-## Dev Dependencies
-
-- [chai](https://github.com/chaijs/chai): BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
-- [check-for-leaks](): avoid publishing secrets to git and npm
-- [dotenv-safe](https://github.com/rolodato/dotenv-safe): Load environment variables from .env and ensure they are defined
-- [github](): NodeJS wrapper for the GitHub API
-- [got](): Simplified HTTP requests
-- [hubdown](): Convert markdown to GitHub-style HTML using a common set of remark plugins
-- [lodash](): Lodash modular utilities.
-- [mocha](https://github.com/mochajs/mocha): simple, flexible, fun test framework
-- [npm](https://github.com/npm/npm): a package manager for JavaScript
-- [parse-link-header](https://github.com/thlorenz/parse-link-header): Parses a link header and returns paging information for each contained link.
-- [semver](): The semantic version parser used by npm.
-- [standard](https://github.com/standard/standard): JavaScript Standard Style
-- [standard-markdown](): Test your Markdown files for Standard JavaScript Style™
-
-
-## License
-
-MIT
