@@ -199,6 +199,12 @@ async function processRelease(release) {
       ' <a href="https://github.com/electron/electron/pull/$1">#$1</a>'
     )
 
+  // remove top-level heading
+  release.body = release.body
+    .replace(
+      /^# Release Notes for.*/gm,
+      ''
+    )
   const slugger = new GitHubSlugger()
 
   /**
