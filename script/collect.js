@@ -13,9 +13,9 @@ const { Octokit } = require('@octokit/rest')
 const got = require('got')
 const parseLinkHeader = require('parse-link-header')
 const { getPlatformFromFilename } = require('platform-utils')
-const visit = require('unist-util-visit');
-const toString = require('mdast-util-to-string');
-const GitHubSlugger = require('github-slugger');
+const visit = require('unist-util-visit')
+const toString = require('mdast-util-to-string')
+const GitHubSlugger = require('github-slugger')
 
 // `electron` was once a different module on npm. prior to 1.3.1 it was
 // published as `electron-prebuilt`
@@ -186,43 +186,40 @@ const findVersionForTag = (releases, tag, source) => {
 
 /**
  * Processes the release notes into HTML using hubdown.
- * @param {*} release 
- * @returns 
+ * @param {*} release
+ * @returns
  */
 async function processRelease(release) {
   release.version = release.tag_name.substring(1)
 
   // turn PR references like #123 into hyperlinks
-  release.body = release.body
-    .replace(
-      / #(\d+)/gm,
-      ' <a href="https://github.com/electron/electron/pull/$1">#$1</a>'
-    )
+  release.body = release.body.replace(
+    / #(\d+)/gm,
+    ' <a href="https://github.com/electron/electron/pull/$1">#$1</a>'
+  )
 
   // remove top-level heading
-  release.body = release.body
-    .replace(
-      /^# Release Notes for.*/gm,
-      ''
-    )
+  release.body = release.body.replace(/^# Release Notes for.*/gm, '')
   const slugger = new GitHubSlugger()
 
   /**
    * Custom remark plugin to set unique heading IDs based on the release version.
    * Do this so that multiple release notes can be listed in the same web page
    * while having identical headings.
-   */  
+   */
   const headingSlugs = () => (tree) => {
     visit(tree, 'heading', (node) => {
       node.data = node.data || {}
       node.data.hProperties = node.data.hProperties || {}
-      node.data.hProperties.id = slugger.slug(`${toString(node)} ${release.version}`)
+      node.data.hProperties.id = slugger.slug(
+        `${toString(node)} ${release.version}`
+      )
     })
     return tree
   }
 
   const parsed = await hubdown(release.body, {
-    runBefore: [headingSlugs]
+    runBefore: [headingSlugs],
   })
   release.body_html = parsed.content
 
