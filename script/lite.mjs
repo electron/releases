@@ -1,4 +1,6 @@
-const lite = require('..').map((release) => {
+import releases from '../index.json'
+
+const lite = releases.map((release) => {
   delete release.assets
   delete release.author
   delete release.body

@@ -36,7 +36,7 @@ npm i electron-releases
 The module exports an array of release objects:
 
 ```js
-const releases = require('electron-releases')
+import * as releases from 'electron-releases'
 
 // find newest version:
 releases[0].tag_name // => 'v1.8.2-beta.3'
@@ -56,8 +56,10 @@ GitHub API like release assets.
 If you just need the basic info like version numbers, npm dist tags, and publish dates, there's a much smaller (<500K) dataset you can use:
 
 ```js
-require('electron-releases/lite.json')
+import small from 'electron-releases/lite.json'
 ```
+
+Note that you'll need to use the [`--experimental-json-modules`](https://nodejs.org/api/esm.html#esm_json_modules) flag for this.
 
 You can also get this at [unpkg.com/electron-releases/lite.json](https://unpkg.com/electron-releases/lite.json)
 
