@@ -1,15 +1,16 @@
 #!/usr/bin/env node
 
-const tableify = require('json-to-markdown-table')
-const versions = require('..')
-const fs = require('fs')
-const path = require('path')
+import * as tableify from 'json-to-markdown-table'
+import * as fs from 'fs'
+import * as path from 'path'
+import releases from '../index.json'
+
 const readmePath = path.join(__dirname, '../readme.md')
 const readmeContent = fs.readFileSync(readmePath, 'utf8')
 const startComment = '<!-- START RELEASES TABLE -->'
 const endComment = '<!-- END RELEASES TABLE -->'
 const pattern = new RegExp(`${startComment}[\\s\\S]*${endComment}`, 'gm')
-const data = versions.map((version) => {
+const data = releases.map((version) => {
   return {
     Tag: `[${version.tag_name}](https://github.com/electron/electron/releases/tag/${version.tag_name})`,
     Published: version.published_at.substring(0, 10),

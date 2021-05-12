@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 
-require('make-promises-safe')
 if (!process.env.GH_TOKEN) {
-  require('dotenv-safe').config()
+  import * as dotenvSafe from 'dotenv-safe'
+  dotenvSafe.config()
 }
 
-const fs = require('fs')
-const path = require('path')
-const semver = require('semver')
-const hubdown = require('hubdown')
-const { Octokit } = require('@octokit/rest')
-const got = require('got')
-const parseLinkHeader = require('parse-link-header')
-const { getPlatformFromFilename } = require('platform-utils')
-const visit = require('unist-util-visit')
-const toString = require('mdast-util-to-string')
-const GitHubSlugger = require('github-slugger')
+import * as fs from 'fs'
+import * as path from 'path'
+import semver from 'semver'
+import * as hubdown from 'hubdown'
+import { Octokit } from '@octokit/rest'
+import got from 'got'
+import * as parseLinkHeader from 'parse-link-header'
+import { getPlatformFromFilename } from 'platform-utils'
+import * as visit from 'unist-util-visit'
+import { toString } from 'mdast-util-to-string'
+import * as GitHubSlugger from 'github-slugger'
 
 // `electron` was once a different module on npm. prior to 1.3.1 it was
 // published as `electron-prebuilt`
@@ -124,7 +124,7 @@ async function main() {
 
   // Compare the old data to the new data
   // and abort the build early if key data hasn't changed.
-  const old = require('..')
+  import old from '../index.json'
   // Convert the 2.x npm_dist_tag (string) format to the
   // 3.x npm_dist_tags (array) format.
   // This can be removed once a 3.x release is published.

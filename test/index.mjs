@@ -1,8 +1,11 @@
-require('chai').should()
-const { describe, it } = require('mocha')
-const releases = require('..')
-const semver = require('semver')
-const flat = require('flat')
+import { describe, it } from 'mocha'
+import releases from '../index.json'
+import lite from '../lite.json'
+import semver from 'semver'
+import flat from 'flat'
+import chai from 'chai'
+
+chai.should()
 
 describe('electron-releases', () => {
   it('is an array', () => {
@@ -165,8 +168,6 @@ describe('electron-releases', () => {
 })
 
 describe('electron-releases/lite.json', () => {
-  const lite = require('../lite.json')
-
   it('is an array', () => {
     lite.should.be.an('array')
   })
