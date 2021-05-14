@@ -4,18 +4,15 @@ on:
   schedule:
     - cron: '0 */6 * * *'
   
-
 jobs:
   release:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@master
-    - name: Use Node.js 10.x
+    - name: Use Node.js 14.x
       uses: actions/setup-node@v2.1.5
       with:
-        version: 10.x
+        version: 14.x
     - name: npm install and release
       run: npm run release
       env:
