@@ -1,19 +1,28 @@
 name: Test
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@master
-    - name: Use Node.js 10.x
+    - name: Use Node.js 14.x
       uses: actions/setup-node@v2.1.5
       with:
-        version: 10.x
-    - name: npm install, build, and test
-      run: |
-        npm ci
-        npm test
+        version: 14.x
+    - name: Install Dependencies
+      run: npm ci
+    - name: Run Unit Tests
+      run: npm test
+    - name: Run Build Process
+      run: npm run build
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
