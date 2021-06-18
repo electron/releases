@@ -162,6 +162,12 @@ describe('electron-releases', () => {
       '<a href="https://github.com/electron/electron/pull/11827">#11827</a>'
     )
   })
+
+  it('deletes the "uploader" attribute for all release assets', () => {
+    releases
+      .every((release) => release.assets.every((asset) => !asset.uploader))
+      .should.eq(true)
+  })
 })
 
 describe('electron-releases/lite.json', () => {

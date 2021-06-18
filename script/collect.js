@@ -113,6 +113,12 @@ async function main() {
         }, 0)
       }
 
+      // the "uploader" field takes a lot of space and doesn't provide
+      // very useful information
+      for (const asset of release.assets) {
+        delete asset.uploader
+      }
+
       return release
     })
 
