@@ -51,6 +51,13 @@ describe('electron-releases', () => {
     releasesWithVersionData.length.should.be.above(154)
   })
 
+  it('includes one release with the `alpha` npm dist tag', () => {
+    const alpha = releases.filter((release) =>
+      release.npm_dist_tags.includes('alpha')
+    )
+    alpha.length.should.eq(1)
+  })
+
   it('includes one release with the `beta` npm dist tag', () => {
     const beta = releases.filter((release) =>
       release.npm_dist_tags.includes('beta')
