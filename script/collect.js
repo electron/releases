@@ -102,7 +102,7 @@ async function main() {
       )
       if (deps) release.deps = deps
 
-      // apply dist tags from npm (usually `latest`, `beta` or `nightly`)
+      // apply dist tags from npm (usually `latest`, `alpha`, `beta` or `nightly`)
       release.npm_dist_tags = npmDistTaggedVersions[release.version] || []
 
       if (release.assets) {
@@ -142,7 +142,7 @@ async function main() {
   })
 
   let tagsChanged
-  for (const tag of ['latest', 'beta', 'nightly']) {
+  for (const tag of ['latest', 'beta', 'alpha', 'nightly']) {
     const oldVersion = findVersionForTag(old, tag, 'index.json')
     const newVersion = findVersionForTag(
       releases,
