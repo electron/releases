@@ -1,6 +1,8 @@
 # electron-releases
 
 ![Test](https://github.com/electron/releases/workflows/Test/badge.svg)
+[![Update And Release](https://github.com/electron/releases/actions/workflows/release.yml/badge.svg)](https://github.com/electron/releases/actions/workflows/release.yml)
+[![npm version](http://img.shields.io/npm/v/electron-releases.svg)](https://npmjs.org/package/electron-releases)
 
 > Complete and up-to-date info about every release of Electron.
 
