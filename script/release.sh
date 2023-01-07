@@ -21,8 +21,8 @@ fi
 git config user.email electron@github.com
 git config user.name electron-bot
 git add .
-git commit -am "update electron-releases"
-npm version minor -m "bump minor to %s"
+git commit -am "chore: update electron-releases"
+npm version minor -m "chore: bump minor to %s"
 git push origin master --follow-tags
 echo //registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN} > .npmrc
 npm publish
