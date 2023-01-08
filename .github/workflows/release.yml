@@ -3,18 +3,21 @@ name: Update And Release
 on:
   schedule:
     - cron: '0 */6 * * *'
-  
+
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v2.1.5
+    - uses: actions/checkout@dc323e67f16fb5f7663d20ff7941f27f5809e9b6  # tag: v2
+    - name: Use Node.js 16
+      uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561  # tag: v2
       with:
-        version: 14.x
+        node_version: 16
     - name: npm install and release
       run: npm run release
       env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
