@@ -1,6 +1,6 @@
 # electron-releases
 
-![Test](https://github.com/electron/releases/workflows/Test/badge.svg)
+[![Test](https://github.com/electron/releases/actions/workflows/test.yml/badge.svg)](https://github.com/electron/releases/actions/workflows/test.yml)
 [![Update And Release](https://github.com/electron/releases/actions/workflows/release.yml/badge.svg)](https://github.com/electron/releases/actions/workflows/release.yml)
 [![npm version](http://img.shields.io/npm/v/electron-releases.svg)](https://npmjs.org/package/electron-releases)
 
