@@ -1,3 +1,7 @@
+> **Warning**
+>
+> This repository is now _deprecated_ and the npm package will no longer be updated. If you want to access a full list of all Electron releases, please refer to https://electronjs.org/headers/index.json instead.
+
 # electron-releases
 
 ![Test](https://github.com/electron/releases/workflows/Test/badge.svg)
